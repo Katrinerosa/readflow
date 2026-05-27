@@ -1,0 +1,218 @@
+---
+interface LevelOption {
+  level: string;
+  label: string;
+  url: string;
+}
+
+interface Props {
+  book: any;
+  author?: any;
+  authorUrl?: string;
+  lang: string;
+  translations: {
+    by: string;
+    startReading: string;
+    aboutBook: string;
+    chooseBook?: string;
+    tryEdition?: string;
+  };
+  bookDetailUrl: string;
+  readerUrl: string;
+  variant?: "full" | "compact";
+  levelOptions?: LevelOption[];
+}
+
+const { book, author, authorUrl, translations, bookDetailUrl, readerUrl, variant = "full", levelOptions = [] } = Astro.props;
+const isCompact = variant === "compact";
+const hasLevels = isCompact && levelOptions.length > 0;
+---
+
+<article class:list={["book-item", { compact: isCompact }]}>
+  {isCompact && <h2 class="compact-title">{book.title}</h2>}
+  {book.cover_image && (
+    <img
+      src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${book.cover_image}`}
+      alt={book.title}
+      class="book-cover"
+    />
+  )}
+  <div class="book-info">
+    {!isCompact && <h2>{book.title}</h2>}
+    {!isCompact && author && (
+      <p class="author">
+        {translations.by} {authorUrl ? (
+          <a href={authorUrl} class="author-link">{author.name}</a>
+        ) : (
+          <span>{author.name}</span>
+        )}
+      </p>
+    )}
+    {!isCompact && book.excerpt && <div class="description" set:html={book.excerpt}></div>}
+    {hasLevels ? (
+      <div class="level-picker">
+        {translations.tryEdition && <span class="level-picker-label">{translations.tryEdition}</span>}
+        <div class="level-picker-buttons">
+          {levelOptions.map((opt) => (
+            <a href={opt.url} class="btn btn-primary level-btn">{opt.label}</a>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="book-actions">
+        {isCompact ? (
+          <a href={readerUrl} class="btn btn-primary">
+            {translations.chooseBook ?? translations.startReading}
+          </a>
+        ) : (
+          <>
+            <a href={readerUrl} class="btn btn-primary">
+              {translations.startReading}
+            </a>
+            <a href={bookDetailUrl} class="btn-link">
+              {translations.aboutBook}
+            </a>
+          </>
+        )}
+      </div>
+    )}
+  </div>
+</article>
+
+<style>
+  .book-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.15s;
+  }
+
+  .book-item:hover {
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  .book-cover {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .book-item.compact .compact-title {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .book-item.compact .book-cover {
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .level-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .level-picker-label {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  .level-picker-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .level-btn {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-info h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .author {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .author-link {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .author-link:hover {
+    text-decoration: underline;
+  }
+
+  .description {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .book-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* Dyslexia-friendly minimum touch target */
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background 0.15s, box-shadow 0.15s;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 4px rgba(15, 42, 145, 0.2);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 4px 8px rgba(15, 42, 145, 0.3);
+  }
+
+  .btn-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .btn-link:hover {
+    color: var(--primary-hover);
+  }
+
+  @media (max-width: 768px) {
+    .book-cover {
+      height: 240px;
+    }
+  }
+</style>

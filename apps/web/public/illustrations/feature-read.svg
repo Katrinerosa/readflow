@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="80" fill="#8B5CF6" opacity="0.1"/>
+
+  <!-- Open book -->
+  <path d="M 100 140 L 50 130 L 50 70 L 100 80 Z" fill="#ffffff" stroke="#8B5CF6" stroke-width="2"/>
+  <path d="M 100 140 L 150 130 L 150 70 L 100 80 Z" fill="#ffffff" stroke="#8B5CF6" stroke-width="2"/>
+
+  <!-- Text lines on left page -->
+  <line x1="58" y1="85" x2="92" y2="90" stroke="#22C55E" stroke-width="2"/>
+  <line x1="58" y1="95" x2="92" y2="100" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="58" y1="103" x2="92" y2="108" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="58" y1="111" x2="85" y2="115" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- Text lines on right page -->
+  <line x1="108" y1="90" x2="142" y2="85" stroke="#F97316" stroke-width="2"/>
+  <line x1="108" y1="100" x2="142" y2="95" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="108" y1="108" x2="142" y2="103" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="108" y1="115" x2="135" y2="111" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- Reading progress indicator -->
+  <rect x="85" y="50" width="30" height="8" rx="4" fill="#e5e7eb"/>
+  <rect x="85" y="50" width="20" height="8" rx="4" fill="#22C55E"/>
+
+  <!-- Sparkles -->
+  <circle cx="160" cy="70" r="4" fill="#22C55E"/>
+  <circle cx="40" cy="150" r="3" fill="#F97316"/>
+</svg>

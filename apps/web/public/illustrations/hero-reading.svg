@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <!-- Background shapes -->
+  <circle cx="400" cy="100" r="60" fill="#22C55E" opacity="0.1"/>
+  <circle cx="80" cy="300" r="40" fill="#8B5CF6" opacity="0.1"/>
+
+  <!-- Books stack -->
+  <rect x="50" y="200" width="120" height="20" rx="2" fill="#F97316" transform="rotate(-5 110 210)"/>
+  <rect x="55" y="175" width="110" height="20" rx="2" fill="#8B5CF6" transform="rotate(3 110 185)"/>
+  <rect x="52" y="150" width="115" height="20" rx="2" fill="#22C55E" transform="rotate(-2 110 160)"/>
+
+  <!-- Person reading -->
+  <ellipse cx="300" cy="350" rx="100" ry="20" fill="#e5e7eb"/>
+
+  <!-- Body -->
+  <path d="M 280 340 Q 280 280 300 250 Q 320 280 320 340 Z" fill="#22C55E"/>
+
+  <!-- Head -->
+  <circle cx="300" cy="220" r="35" fill="#fcd5b5"/>
+
+  <!-- Hair -->
+  <path d="M 270 200 Q 270 180 300 175 Q 330 180 330 200 Q 320 195 300 195 Q 280 195 270 200 Z" fill="#4B5563"/>
+
+  <!-- Book being read -->
+  <rect x="250" y="260" width="60" height="45" rx="3" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="280" y="260" width="2" height="45" fill="#e5e7eb"/>
+  <line x1="255" y1="270" x2="275" y2="270" stroke="#22C55E" stroke-width="2"/>
+  <line x1="255" y1="280" x2="275" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="255" y1="288" x2="275" y2="288" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="285" y1="270" x2="305" y2="270" stroke="#8B5CF6" stroke-width="2"/>
+  <line x1="285" y1="280" x2="305" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="285" y1="288" x2="305" y2="288" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Floating elements -->
+  <circle cx="420" cy="200" r="8" fill="#F97316" opacity="0.6"/>
+  <circle cx="450" cy="250" r="5" fill="#8B5CF6" opacity="0.6"/>
+  <circle cx="400" cy="280" r="6" fill="#22C55E" opacity="0.6"/>
+
+  <!-- Stars/sparkles -->
+  <path d="M 380 150 L 385 160 L 395 160 L 387 167 L 390 177 L 380 170 L 370 177 L 373 167 L 365 160 L 375 160 Z" fill="#F97316" opacity="0.8"/>
+  <path d="M 140 100 L 143 107 L 150 107 L 145 112 L 147 119 L 140 114 L 133 119 L 135 112 L 130 107 L 137 107 Z" fill="#8B5CF6" opacity="0.8"/>
+</svg>

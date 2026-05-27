@@ -1,0 +1,120 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  directus:
+    build:
+      context: ./directus
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # Core
+      KEY: ${KEY:?KEY must be set}
+      SECRET: ${SECRET:?SECRET must be set}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8055}
+      PORT: ${PORT}
+      # Database
+      DB_CLIENT: pg
+      DB_HOST: ${POSTGRES_DB_HOST}
+      DB_PORT: ${POSTGRES_DB_PORT}
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      # Cache & Queues
+      REDIS_ENABLED: ${REDIS_ENABLED}
+      REDIS: ${REDIS}
+      # Auth bootstrap
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      # CORS
+      CORS_ENABLED: ${CORS_ENABLED}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      # File storage
+      STORAGE_LOCATIONS: ${STORAGE_LOCATIONS:-local}
+      STORAGE_LOCAL_ROOT: ${STORAGE_LOCAL_ROOT:-/directus/uploads}
+      # S3 (enables S3 storage if STORAGE_LOCATIONS=s3)
+      STORAGE_S3_BUCKET:   ${STORAGE_S3_BUCKET:-}
+      STORAGE_S3_KEY:      ${STORAGE_S3_KEY:-}
+      STORAGE_S3_SECRET:   ${STORAGE_S3_SECRET:-}
+      STORAGE_S3_REGION:   ${STORAGE_S3_REGION:-}
+      STORAGE_S3_ENDPOINT: ${STORAGE_S3_ENDPOINT:-}
+      # Rate limits
+      RATE_LIMITER_ENABLED: ${RATE_LIMITER_ENABLED:-true}
+      RATE_LIMITER_POINTS: ${RATE_LIMITER_POINTS:-50}
+      RATE_LIMITER_DURATION: ${RATE_LIMITER_DURATION:-1}
+      # External APIs
+      API_KEY_ELEVEN_LABS: ${API_KEY_ELEVEN_LABS}
+      # Flows configuration
+      FLOWS_ENV_ALLOW_LIST: ${FLOWS_ENV_ALLOW_LIST:-API_KEY_ELEVEN_LABS}
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions/node_modules
+    ports:
+      - "8055:8055"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      args:
+        PUBLIC_DIRECTUS_URL: ${PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+    restart: unless-stopped
+    depends_on:
+      directus:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DIRECTUS_URL: ${DIRECTUS_URL:-http://directus:8055}
+      PUBLIC_DIRECTUS_URL: ${PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+      HOST: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  pgdata:
+  redisdata:
+  directus_uploads:
+  directus_extensions:

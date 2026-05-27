@@ -1,0 +1,136 @@
+---
+import { directus } from "../lib/directus";
+import { readItems } from "@directus/sdk";
+import { t, type Language } from "../lib/i18n";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+
+interface Supporter {
+  id: string;
+  status: string;
+  sort: number | null;
+  image: string;
+  name: string;
+  url: string | null;
+}
+
+let supporters: Supporter[] = [];
+
+try {
+  supporters = await directus.request(
+    readItems("supporters", {
+      filter: {
+        status: { _eq: "published" }
+      },
+      sort: ["sort", "name"],
+      limit: -1,
+    })
+  );
+} catch (error) {
+  console.error("Error loading supporters:", error);
+}
+
+const heading = await t("common.supported_by", lang);
+---
+
+{supporters.length > 0 && (
+  <section class="supporters">
+    <h2>{heading}</h2>
+    <div class="supporters-grid">
+      {supporters.map((supporter) => (
+        <div class="supporter-item">
+          {supporter.url ? (
+            <a href={supporter.url} target="_blank" rel="noopener noreferrer">
+              <img
+                src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${supporter.image}`}
+                alt={supporter.name}
+                loading="lazy"
+              />
+            </a>
+          ) : (
+            <img
+              src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${supporter.image}`}
+              alt={supporter.name}
+              loading="lazy"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .supporters {
+    margin: 4rem 0 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .supporters h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .supporters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .supporter-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .supporter-item a {
+    display: block;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .supporter-item a:hover {
+    transform: scale(1.05);
+  }
+
+  .supporter-item img {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    object-fit: contain;
+    filter: grayscale(50%);
+    opacity: 0.8;
+    transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .supporter-item a:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .supporters {
+      margin: 3rem 0 1rem;
+    }
+
+    .supporters-grid {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
+      gap: 1.5rem;
+    }
+
+    .supporters h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>

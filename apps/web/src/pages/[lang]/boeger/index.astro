@@ -1,0 +1,136 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import BookCard from "../../../components/BookCard.astro";
+import { getPublishedBooks, directus, isBookAvailableInLanguage } from "../../../lib/directus";
+import { readItems } from "@directus/sdk";
+import { t, getLanguageFromPath, type Language } from "../../../lib/i18n";
+import { localizedRoute } from "../../../lib/routes";
+
+const lang = getLanguageFromPath(Astro.url.pathname) as Language;
+
+let books = [];
+try {
+  books = await getPublishedBooks();
+
+  // Filter books by translation availability for current language
+  const booksWithCompleteTranslations = await Promise.all(
+    books.map(async (book: any) => {
+      const isAvailable = await isBookAvailableInLanguage(book.id, lang);
+      return isAvailable ? book : null;
+    })
+  );
+  books = booksWithCompleteTranslations.filter((book: any) => book !== null);
+
+  // Fetch book translations for all books
+  if (books.length > 0) {
+    try {
+      const bookIds = books.map((b: any) => b.id);
+      const bookTranslations = await directus.request(
+        readItems("books_translations", {
+          filter: {
+            _and: [
+              { books_id: { _in: bookIds } },
+              { languages_code: { _eq: lang } }
+            ]
+          },
+        })
+      );
+
+      // Merge translations into book objects
+      books = books.map((book: any) => {
+        const translation = bookTranslations.find((t: any) => t.books_id === book.id);
+        if (translation) {
+          return {
+            ...book,
+            description: translation.description,
+            excerpt: translation.excerpt,
+            instruction: translation.instruction,
+            final_words: translation.final_words,
+          };
+        }
+        return book;
+      });
+    } catch (e) {
+      console.warn("Could not load book translations:", e);
+    }
+  }
+} catch (e) {
+  console.error("Failed to fetch books:", e);
+}
+
+// Load translations
+const translations = {
+  title: await t("books.title", lang),
+  subtitle: await t("books.subtitle", lang),
+  noBooks: await t("books.no_books", lang),
+  by: await t("common.by", lang),
+  startReading: await t("books.start_reading", lang),
+  aboutBook: await t("books.about_book", lang),
+};
+---
+
+<Layout title={`${translations.title} - ReadFlow`}>
+  <div class="page-header">
+    <h1>{translations.title}</h1>
+    <p class="subtitle">{translations.subtitle}</p>
+  </div>
+
+  {
+    books.length === 0 ? (
+      <p>{translations.noBooks}</p>
+    ) : (
+      <div class="book-grid">
+        {books.map((book) => {
+          const author = (typeof book.author_id === 'object' ? book.author_id : null) || (typeof book.author === 'object' ? book.author : null);
+          const bookDetailUrl = author ? localizedRoute(lang, "book", { author: author.slug, book: book.slug }) : localizedRoute(lang, "book", { author: "unknown", book: book.slug });
+          const readerUrl = author ? `/reader/${lang}/${author.slug}/${book.slug}/page/1` : `/reader/${lang}/unknown/${book.slug}/page/1`;
+          const authorUrl = author ? localizedRoute(lang, "author", { author: author.slug }) : undefined;
+          return (
+            <BookCard
+              book={book}
+              author={author}
+              authorUrl={authorUrl}
+              lang={lang}
+              translations={{
+                by: translations.by,
+                startReading: translations.startReading,
+                aboutBook: translations.aboutBook,
+              }}
+              bookDetailUrl={bookDetailUrl}
+              readerUrl={readerUrl}
+            />
+          );
+        })}
+      </div>
+    )
+  }
+</Layout>
+
+<style>
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .book-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

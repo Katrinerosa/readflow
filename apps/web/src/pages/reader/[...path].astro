@@ -1,0 +1,38 @@
+---
+// Catch-all route for Vue SPA - serves index.html for all /reader/* routes
+// This allows Vue Router to handle client-side routing
+import fs from 'fs';
+import path from 'path';
+
+// In production build, files are in dist/client/reader/
+// In development or when running the server, we read from public/
+let readerHtml = '';
+let readerIndexPath = '';
+
+// Try production path first (when running from dist)
+const prodPath = path.join(process.cwd(), 'dist/client/reader/index.html');
+const publicPath = path.join(process.cwd(), 'public/reader/index.html');
+
+if (fs.existsSync(prodPath)) {
+  readerIndexPath = prodPath;
+} else if (fs.existsSync(publicPath)) {
+  readerIndexPath = publicPath;
+} else {
+  console.error('Reader index.html not found in either location');
+  return new Response('Reader not found. Please build the reader app.', { status: 500 });
+}
+
+try {
+  readerHtml = fs.readFileSync(readerIndexPath, 'utf-8');
+} catch (error) {
+  console.error('Failed to load reader index.html:', error);
+  return new Response('Reader not found. Please build the reader app.', { status: 500 });
+}
+
+return new Response(readerHtml, {
+  status: 200,
+  headers: {
+    'Content-Type': 'text/html; charset=utf-8',
+  },
+});
+---

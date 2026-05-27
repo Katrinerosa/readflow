@@ -1,0 +1,723 @@
+---
+export const prerender = false;
+
+import Layout from "../../layouts/Layout.astro";
+import { getPublishedBooks, directus, isBookAvailableInLanguage } from "../../lib/directus";
+import { readItems, readSingleton } from "@directus/sdk";
+import { t, getLanguageFromPath, type Language } from "../../lib/i18n";
+import { localizedRoute } from "../../lib/routes";
+import { truncateHtml, safeHtml } from "../../lib/html-utils";
+import BookCard from "../../components/BookCard.astro";
+import Supporters from "../../components/Supporters.astro";
+
+const lang = getLanguageFromPath(Astro.url.pathname) as Language;
+const PUBLIC_DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL || "http://localhost:8055";
+
+let books = [];
+let authors = [];
+let frontpageVideoUrl: string | null = null;
+let stepImageUrls: (string | null)[] = [null, null, null];
+let error = null;
+
+const assetUrl = (file: any): string | null => {
+  if (!file) return null;
+  if (typeof file === "string") return `${PUBLIC_DIRECTUS_URL}/assets/${file}`;
+  const id = file.id;
+  if (!id) return null;
+  const v = file.modified_on || file.uploaded_on || "";
+  return v
+    ? `${PUBLIC_DIRECTUS_URL}/assets/${id}?v=${encodeURIComponent(v)}`
+    : `${PUBLIC_DIRECTUS_URL}/assets/${id}`;
+};
+
+try {
+  const frontpage: any = await directus.request(
+    readSingleton("frontpage", {
+      fields: [
+        "translations.languages_code",
+        "translations.video.id",
+        "translations.video.modified_on",
+        "translations.step1_image.id",
+        "translations.step1_image.modified_on",
+        "translations.step2_image.id",
+        "translations.step2_image.modified_on",
+        "translations.step3_image.id",
+        "translations.step3_image.modified_on",
+      ],
+      deep: {
+        translations: {
+          _filter: { languages_code: { _eq: lang } },
+        },
+      },
+    })
+  );
+  const tr = frontpage?.translations?.[0];
+  frontpageVideoUrl = assetUrl(tr?.video);
+  stepImageUrls = [
+    assetUrl(tr?.step1_image),
+    assetUrl(tr?.step2_image),
+    assetUrl(tr?.step3_image),
+  ];
+} catch (e) {
+  console.warn("Could not load frontpage singleton:", e);
+}
+
+try {
+  const result = await getPublishedBooks();
+  books = Array.isArray(result) ? result : [];
+
+  // Filter to only show featured books on homepage
+  books = books.filter((book: any) => book.featured === true);
+
+  // Filter books by translation availability for current language
+  const booksWithCompleteTranslations = await Promise.all(
+    books.map(async (book: any) => {
+      const isAvailable = await isBookAvailableInLanguage(book.id, lang);
+      return isAvailable ? book : null;
+    })
+  );
+  books = booksWithCompleteTranslations.filter((book: any) => book !== null);
+
+  // Fetch book translations for all books
+  if (books.length > 0) {
+    try {
+      const bookIds = books.map((b: any) => b.id);
+      const bookTranslations = await directus.request(
+        readItems("books_translations", {
+          filter: {
+            _and: [
+              { books_id: { _in: bookIds } },
+              { languages_code: { _eq: lang } }
+            ]
+          },
+        })
+      );
+
+      // Merge translations into book objects
+      books = books.map((book: any) => {
+        const translation = bookTranslations.find((t: any) => t.books_id === book.id);
+        if (translation) {
+          return {
+            ...book,
+            description: translation.description,
+            excerpt: translation.excerpt,
+            instruction: translation.instruction,
+            final_words: translation.final_words,
+          };
+        }
+        return book;
+      });
+    } catch (e) {
+      console.warn("Could not load book translations:", e);
+    }
+
+    // Fetch available reading levels for each book (only published in current language)
+    try {
+      const bookIds = books.map((b: any) => b.id);
+      const bookContents: any[] = await directus.request(
+        readItems("book_content", {
+          filter: { book: { _in: bookIds } },
+          fields: ["id", "book", "reading_level"],
+          limit: -1,
+        })
+      );
+      const contentIdToBookId: Record<string, string> = {};
+      const contentIdToLevel: Record<string, string> = {};
+      for (const bc of bookContents) {
+        contentIdToBookId[bc.id] = typeof bc.book === "object" ? bc.book.id : bc.book;
+        contentIdToLevel[bc.id] = bc.reading_level;
+      }
+      const contentTranslations: any[] = await directus.request(
+        readItems("book_content_translations", {
+          filter: {
+            _and: [
+              { book_content_id: { _in: bookContents.map((bc: any) => bc.id) } },
+              { languages_code: { _eq: lang } },
+              { status: { _eq: "published" } },
+            ],
+          },
+          fields: ["book_content_id"],
+          limit: -1,
+        })
+      );
+      const levelOrder: Record<string, number> = { basic: 1, easy: 2, medium: 3, difficult: 4, hard: 5 };
+      const levelsByBook: Record<string, string[]> = {};
+      for (const t of contentTranslations) {
+        const bookId = contentIdToBookId[t.book_content_id];
+        const level = contentIdToLevel[t.book_content_id];
+        if (!bookId || !level) continue;
+        if (!levelsByBook[bookId]) levelsByBook[bookId] = [];
+        if (!levelsByBook[bookId].includes(level)) levelsByBook[bookId].push(level);
+      }
+      for (const bookId of Object.keys(levelsByBook)) {
+        levelsByBook[bookId].sort((a, b) => (levelOrder[a] || 99) - (levelOrder[b] || 99));
+      }
+      books = books.map((book: any) => ({
+        ...book,
+        availableLevels: levelsByBook[book.id] || [],
+      }));
+    } catch (e) {
+      console.warn("Could not load book content levels:", e);
+    }
+  }
+
+  // Get authors with at least one published book
+  try {
+    authors = await directus.request(
+      readItems("authors", {
+        filter: { featured: { _eq: true } },
+        sort: ["name"],
+        fields: ["*"],
+        limit: 6,
+      })
+    );
+
+    // Fetch author bio translations for all authors
+    if (authors.length > 0) {
+      try {
+        const authorIds = authors.map((a: any) => a.id);
+        const authorTranslations = await directus.request(
+          readItems("authors_translations", {
+            filter: {
+              _and: [
+                { authors_id: { _in: authorIds } },
+                { languages_code: { _eq: lang } }
+              ]
+            },
+          })
+        );
+
+        // Merge translations into author objects
+        authors = authors.map((author: any) => {
+          const translation = authorTranslations.find((t: any) => t.authors_id === author.id);
+          if (translation && translation.bio) {
+            return { ...author, bio: translation.bio };
+          }
+          return author;
+        });
+      } catch (e) {
+        console.warn("Could not load author translations:", e);
+      }
+    }
+  } catch (e) {
+    console.error("Failed to fetch authors:", e);
+    authors = [];
+  }
+} catch (e) {
+  error = e?.message || "Failed to load books";
+  console.error("Failed to fetch books:", e);
+  books = [];
+}
+
+// Load translations
+const translations = {
+  welcome: await t("home.welcome", lang),
+  browseBooks: await t("home.browse_books", lang),
+  heroSubtitle: await t("home.hero.subtitle", lang),
+  by: await t("common.by", lang),
+  aboutBook: await t("books.about_book", lang),
+  startReading: await t("books.start_reading", lang),
+  chooseBook: await t("home.choose_book", lang),
+  tryEdition: await t("home.try_edition", lang),
+  levelBasic: await t("book.level.basic", lang),
+  levelEasy: await t("book.level.easy", lang),
+  levelMedium: await t("book.level.medium", lang),
+  levelDifficult: await t("book.level.difficult", lang),
+  levelHard: await t("book.level.hard", lang),
+  featuredBooks: await t("home.featured_books", lang),
+  featuredAuthors: await t("home.featured_authors", lang),
+  howItWorks: await t("home.how_it_works", lang),
+  stepOne: await t("home.step.one", lang),
+  stepTwo: await t("home.step.two", lang),
+  stepThree: await t("home.step.three", lang),
+  viewAll: await t("home.view_all", lang),
+  noBooksAdmin: await t("home.no_books_admin", lang),
+  // Features
+  featureOneTitle: await t("feature.one.title", lang),
+  featureOneDesc: await t("feature.one.description", lang),
+  featureTwoTitle: await t("feature.two.title", lang),
+  featureTwoDesc: await t("feature.two.description", lang),
+  featureThreeTitle: await t("feature.three.title", lang),
+  featureThreeDesc: await t("feature.three.description", lang),
+  // Error messages
+  setupRequired: await t("error.setup_required", lang),
+  permissionsMessage: await t("error.permissions_message", lang),
+  howToFix: await t("error.how_to_fix", lang),
+  openDirectus: await t("error.instruction.open_directus", lang),
+  gotoSettings: await t("error.instruction.goto_settings", lang),
+  enableRead: await t("error.instruction.enable_read", lang),
+  refresh: await t("error.instruction.refresh", lang),
+};
+---
+
+<Layout title={`${translations.welcome} - ReadFlow`}>
+  <div class="hero hero-video">
+    {frontpageVideoUrl ? (
+      <>
+        <video
+          id="hero-video"
+          class="hero-video-el"
+          src={frontpageVideoUrl}
+          preload="metadata"
+          playsinline
+          muted
+          loop
+        ></video>
+        <button id="hero-play" class="hero-play" type="button" aria-label="Play">
+          <svg viewBox="0 0 80 80" aria-hidden="true">
+            <circle cx="40" cy="40" r="38" fill="rgba(255,255,255,0.92)" stroke="rgba(0,0,0,0.08)" stroke-width="1" />
+            <polygon points="33,26 33,54 56,40" fill="#0F172A" />
+          </svg>
+        </button>
+      </>
+    ) : (
+      <div class="hero-video-fallback">{translations.welcome}</div>
+    )}
+  </div>
+
+  <script>
+    const v = document.getElementById('hero-video') as HTMLVideoElement | null;
+    const btn = document.getElementById('hero-play') as HTMLButtonElement | null;
+    if (v && btn) {
+      const togglePlay = async () => {
+        if (v.paused) {
+          v.muted = false;
+          try { await v.play(); } catch { v.muted = true; await v.play(); }
+        } else {
+          v.pause();
+        }
+      };
+      btn.addEventListener('click', togglePlay);
+      v.addEventListener('click', togglePlay);
+      v.addEventListener('play', () => btn.classList.add('is-hidden'));
+      v.addEventListener('pause', () => btn.classList.remove('is-hidden'));
+      v.addEventListener('ended', () => btn.classList.remove('is-hidden'));
+    }
+  </script>
+
+  <section class="how-it-works">
+    <h2 class="how-it-works-title">{translations.howItWorks}</h2>
+    <div class="steps-grid">
+      {[
+        { img: stepImageUrls[0], caption: translations.stepOne },
+        { img: stepImageUrls[1], caption: translations.stepTwo },
+        { img: stepImageUrls[2], caption: translations.stepThree },
+      ].map((step) => (
+        <div class="step">
+          <div class="step-frame">
+            {step.img && (
+              <img src={step.img} alt={step.caption} class="step-img" />
+            )}
+          </div>
+          <p class="step-caption">{step.caption}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {
+    error ? (
+      <div class="error">
+        <p>
+          <strong>{translations.setupRequired}:</strong> {translations.permissionsMessage}
+        </p>
+        <details>
+          <summary>{translations.howToFix}</summary>
+          <ol>
+            <li>{translations.openDirectus} <a href="http://localhost:8055">localhost:8055</a></li>
+            <li>{translations.gotoSettings}</li>
+            <li>{translations.enableRead}</li>
+            <li>{translations.refresh}</li>
+          </ol>
+        </details>
+        <code>{error}</code>
+      </div>
+    ) : (
+      <>
+        <section class="featured-books">
+          <div class="section-header">
+            <h2>{translations.featuredBooks}</h2>
+            <a href={localizedRoute(lang, "books")} class="view-all">{translations.viewAll} →</a>
+          </div>
+          {books.length === 0 ? (
+            <p class="empty-message">{translations.noBooksAdmin}</p>
+          ) : (
+            <div class="book-grid">
+              {books.slice(0, 6).map((book) => {
+                const author = (typeof book.author_id === 'object' ? book.author_id : null) || (typeof book.author === 'object' ? book.author : null);
+                const bookDetailUrl = author ? localizedRoute(lang, "book", { author: author.slug, book: book.slug }) : localizedRoute(lang, "book", { author: "unknown", book: book.slug });
+                const authorSlug = author?.slug || "unknown";
+                const readerUrl = `/reader/${lang}/${authorSlug}/${book.slug}/page/1`;
+                const levelLabels = {
+                  basic: translations.levelBasic,
+                  easy: translations.levelEasy,
+                  medium: translations.levelMedium,
+                  difficult: translations.levelDifficult,
+                  hard: translations.levelHard,
+                };
+                const levelOptions = (book.availableLevels || []).map((level) => ({
+                  level,
+                  label: levelLabels[level] || level,
+                  url: `/reader/${lang}/${authorSlug}/${book.slug}/level/${level}/page/1`,
+                }));
+                return (
+                  <BookCard
+                    book={book}
+                    author={author}
+                    lang={lang}
+                    variant="compact"
+                    translations={{
+                      by: translations.by,
+                      startReading: translations.startReading,
+                      aboutBook: translations.aboutBook,
+                      chooseBook: translations.chooseBook,
+                      tryEdition: translations.tryEdition,
+                    }}
+                    bookDetailUrl={bookDetailUrl}
+                    readerUrl={readerUrl}
+                    levelOptions={levelOptions}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        {/* featured-authors hidden for now */}
+        {false && authors.length > 0 && (
+          <section class="featured-authors">
+            <div class="section-header">
+              <h2>{translations.featuredAuthors}</h2>
+            </div>
+            <div class="authors-grid">
+              {authors.map((author: any) => (
+                <a href={localizedRoute(lang, "author", { author: author.slug })} class="author-card">
+                  {author.photo ? (
+                    <img
+                      src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${author.photo}`}
+                      alt={author.name}
+                      class="author-avatar"
+                    />
+                  ) : (
+                    <div class="author-avatar-placeholder">
+                      {author.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <h3>{author.name}</h3>
+                  {author.bio && (
+                    <div class="author-bio-preview">{truncateHtml(author.bio, 80)}</div>
+                  )}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </>
+    )
+  }
+
+  <Supporters lang={lang} />
+</Layout>
+
+<style>
+  .hero {
+    position: relative;
+    margin-bottom: 4rem;
+    overflow: hidden;
+    background: transparent;
+    aspect-ratio: 16 / 9;
+    max-height: 70vh;
+    border: 1px solid #cbd5e1;
+    padding: 6px;
+  }
+
+  .hero-video-el {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  .hero-play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 96px;
+    height: 96px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+  }
+
+  .hero-play:hover {
+    transform: scale(1.06);
+  }
+
+  .hero-play.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .hero-play svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-video-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 2rem;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.4rem 1.5rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+
+  .cta-primary {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background: #fafafa;
+  }
+
+  .cta-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  section {
+    margin-bottom: 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 2.25rem;
+  }
+
+  .view-all {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.15s;
+  }
+
+  .view-all:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+  }
+
+  .empty-message {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .featured-authors {
+    background: var(--bg-alt);
+    padding: 3rem 2rem;
+    margin: 0 -2rem 4rem -2rem;
+    border-radius: 16px;
+  }
+
+  .authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .author-card {
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .author-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px var(--shadow);
+  }
+
+  .author-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid #e5e7eb;
+  }
+
+  .author-avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #1e3a8a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+    border: 3px solid #e5e7eb;
+  }
+
+  .author-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .author-bio-preview {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-light);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .how-it-works {
+    padding: 0 0 1rem;
+  }
+
+  .how-it-works-title {
+    font-size: 2rem;
+    color: var(--primary, #0f2a91);
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .step-frame {
+    aspect-ratio: 4 / 3;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+    padding: 6px;
+  }
+
+  .step-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+  }
+
+  .step-caption {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: var(--text);
+    text-align: left;
+  }
+
+  .error {
+    background: #fee;
+    border: 1px solid #fcc;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .error code {
+    display: block;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      max-height: none;
+    }
+
+    .hero-play {
+      width: 72px;
+      height: 72px;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .book-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .how-it-works-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

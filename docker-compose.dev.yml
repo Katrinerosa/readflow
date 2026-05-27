@@ -1,0 +1,53 @@
+services:
+  directus:
+    volumes:
+      # Mount snapshots directory for bidirectional access in development
+      # This allows both importing schema.json and exporting with export-schema.sh
+      - ./directus/snapshots:/directus/snapshots
+
+  reader:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.dev
+      target: development
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      # Reader runs in browser, so it needs the publicly accessible URL
+      PUBLIC_DIRECTUS_URL: http://localhost:8055
+    volumes:
+      # Mount reader source code for hot reload (exclude node_modules)
+      - ./apps/reader/src:/app/apps/reader/src
+      - ./apps/reader/public:/app/apps/reader/public
+      - ./apps/reader/index.html:/app/apps/reader/index.html
+      - ./apps/reader/vite.config.ts:/app/apps/reader/vite.config.ts
+      - ./apps/reader/tsconfig.json:/app/apps/reader/tsconfig.json
+    ports:
+      - "5173:5173"
+    working_dir: /app
+    command: sh -c "pnpm --filter reader-vue dev --host"
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.dev
+      target: development
+    restart: unless-stopped
+    depends_on:
+      directus:
+        condition: service_healthy
+      reader:
+        condition: service_started
+    environment:
+      NODE_ENV: development
+      DIRECTUS_URL: ${DIRECTUS_URL:-http://directus:8055}
+      PUBLIC_DIRECTUS_URL: ${PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+    volumes:
+      # Mount source code for hot reload
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/public:/app/apps/web/public
+      - ./apps/web/astro.config.mjs:/app/apps/web/astro.config.mjs
+      - ./apps/web/tsconfig.json:/app/apps/web/tsconfig.json
+    ports:
+      - "3000:3000"
+    command: pnpm --filter web-astro dev --host

@@ -1,0 +1,23 @@
+{
+  "name": "web-astro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 3000",
+    "build": "node ./scripts/copy-reader.js && astro build",
+    "build:reader": "cd ../reader && pnpm build && cd ../web && node ./scripts/copy-reader.js",
+    "build:only": "astro build",
+    "start": "node ./dist/server/entry.mjs",
+    "preview": "astro preview",
+    "clean": "rm -rf dist public/reader"
+  },
+  "dependencies": {
+    "astro": "^4.10.0",
+    "@astrojs/node": "^8.2.0",
+    "@directus/sdk": "^17.0.0",
+    "cross-fetch": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}

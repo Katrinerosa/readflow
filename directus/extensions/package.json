@@ -1,0 +1,9 @@
+{
+  "name": "directus-extensions",
+  "private": true,
+  "dependencies": {
+    "@directus-labs/calculated-fields-bundle": "^1.0.3",
+    "@directus-labs/card-select-interfaces": "^1.0.0",
+    "directus-extension-group-tabs-interface": "2.1.0"
+  }
+}

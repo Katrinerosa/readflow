@@ -1,0 +1,33 @@
+{
+  "name": "directus-extension-find-content-by-words",
+  "version": "1.0.0",
+  "description": "Returns book_content_translations IDs whose unique_words contain any of the given words",
+  "icon": "search",
+  "keywords": [
+    "directus",
+    "directus-extension",
+    "directus-custom-operation"
+  ],
+  "type": "module",
+  "directus:extension": {
+    "type": "operation",
+    "path": {
+      "app": "dist/app.js",
+      "api": "dist/api.js"
+    },
+    "source": {
+      "app": "src/app.ts",
+      "api": "src/api.ts"
+    },
+    "host": "^10.10.0 || ^11.0.0"
+  },
+  "scripts": {
+    "build": "directus-extension build",
+    "dev": "directus-extension build -w --no-minify"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "^17.1.2",
+    "@types/node": "^22.19.17",
+    "typescript": "^5.9.3"
+  }
+}

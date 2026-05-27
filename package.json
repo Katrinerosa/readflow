@@ -1,0 +1,17 @@
+{
+  "name": "readflow-monorepo",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "dev:reader": "pnpm -C apps/reader dev",
+    "build": "pnpm -C apps/reader build && node apps/web/scripts/copy-reader.js && pnpm -C apps/web build",
+    "build:reader": "pnpm -C apps/reader build && node apps/web/scripts/copy-reader.js",
+    "build:web": "pnpm -C apps/web build",
+    "clean": "pnpm -C apps/reader clean && pnpm -C apps/web clean",
+    "preview": "pnpm -C apps/web preview",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down"
+  }
+}

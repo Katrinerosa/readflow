@@ -1,0 +1,923 @@
+---
+import Layout from "../../../../../layouts/Layout.astro";
+import { getBookByAuthorAndSlug, directus, isBookAvailableInLanguage } from "../../../../../lib/directus";
+import { readItems } from "@directus/sdk";
+import { t, getLanguageFromPath, type Language } from "../../../../../lib/i18n";
+import { localizedRoute } from "../../../../../lib/routes";
+
+// Type for book content statistics
+interface BookContentStats {
+  reading_level: string;
+  word_count: number;
+  chapter_count: number;
+  image_count: number;
+  lix: number;
+  status: string;
+}
+
+const { author, book } = Astro.params;
+const lang = getLanguageFromPath(Astro.url.pathname) as Language;
+
+if (!author || !book) {
+  return Astro.redirect(localizedRoute(lang, "books"));
+}
+
+let bookData;
+let authorData;
+let bookContentStats: BookContentStats[] = [];
+
+try {
+  bookData = await getBookByAuthorAndSlug(author, book);
+
+  if (!bookData) {
+    return Astro.redirect(localizedRoute(lang, "books"));
+  }
+
+  // Check if book has complete translations for this language
+  const hasCompleteTranslations = await isBookAvailableInLanguage(bookData.id, lang);
+  if (!hasCompleteTranslations) {
+    console.warn(`Book ${bookData.slug} does not have complete translations for ${lang}`);
+    return Astro.redirect(localizedRoute(lang, "books"));
+  }
+
+  authorData = (typeof bookData.author_id === 'object' ? bookData.author_id : null) || (typeof bookData.author === 'object' ? bookData.author : null);
+
+  // Fetch book translations
+  try {
+    const bookTranslations = await directus.request(
+      readItems("books_translations", {
+        filter: {
+          _and: [
+            { books_id: { _eq: bookData.id } },
+            { languages_code: { _eq: lang } }
+          ]
+        },
+        limit: 1,
+      })
+    );
+
+    if (bookTranslations && bookTranslations[0]) {
+      const trans = bookTranslations[0];
+      bookData = {
+        ...bookData,
+        description: trans.description,
+        excerpt: trans.excerpt,
+        instruction: trans.instruction,
+        final_words: trans.final_words,
+      };
+    }
+  } catch (e) {
+    console.warn("Could not load book translations:", e);
+  }
+
+  // Fetch author bio translation
+  if (authorData) {
+    try {
+      const authorTranslations = await directus.request(
+        readItems("authors_translations", {
+          filter: {
+            _and: [
+              { authors_id: { _eq: authorData.id } },
+              { languages_code: { _eq: lang } }
+            ]
+          },
+          limit: 1,
+        })
+      );
+
+      if (authorTranslations && authorTranslations[0] && authorTranslations[0].bio) {
+        authorData = {
+          ...authorData,
+          bio: authorTranslations[0].bio
+        };
+      }
+    } catch (e) {
+      console.warn("Could not load author translations:", e);
+    }
+  }
+
+  // Fetch book content statistics for all reading levels
+  try {
+    // First get all book_content entries for this book with their reading levels
+    const bookContents = await directus.request(
+      readItems("book_content", {
+        filter: {
+          book: { _eq: bookData.id }
+        },
+        fields: ["id", "reading_level"],
+      })
+    );
+
+    if (bookContents && bookContents.length > 0) {
+      // Create a map of book_content_id -> reading_level
+      const readingLevelMap: Record<string, string> = {};
+      bookContents.forEach((bc: any) => {
+        readingLevelMap[bc.id] = bc.reading_level;
+      });
+
+      // Get translations with stats for each book_content and current language
+      const bookContentIds = bookContents.map((bc: any) => bc.id);
+
+      const contentTranslations = await directus.request(
+        readItems("book_content_translations", {
+          filter: {
+            _and: [
+              { book_content_id: { _in: bookContentIds } },
+              { languages_code: { _eq: lang } },
+              { status: { _eq: "published" } }
+            ]
+          },
+          fields: ["book_content_id", "word_count", "chapter_count", "image_count", "lix", "status"],
+        })
+      );
+
+      if (contentTranslations) {
+        // Map translations to stats with correct reading_level from parent book_content
+        bookContentStats = contentTranslations.map((trans: any) => ({
+          reading_level: readingLevelMap[trans.book_content_id] || 'easy',
+          word_count: trans.word_count || 0,
+          chapter_count: trans.chapter_count || 0,
+          image_count: trans.image_count || 0,
+          lix: trans.lix || 0,
+          status: trans.status,
+        }));
+
+        // Sort by reading level: basic, easy, medium, difficult, hard
+        const levelOrder = { basic: 1, easy: 2, medium: 3, difficult: 4, hard: 5 };
+        bookContentStats.sort((a, b) =>
+          (levelOrder[a.reading_level as keyof typeof levelOrder] || 99) -
+          (levelOrder[b.reading_level as keyof typeof levelOrder] || 99)
+        );
+      }
+    }
+  } catch (e) {
+    console.warn("Could not load book content statistics:", e);
+  }
+} catch (error) {
+  console.error("Error loading book page:", error);
+  return Astro.redirect(`/${lang}/books`);
+}
+
+// Load translations
+const translations = {
+  by: await t("common.by", lang),
+  startReading: await t("book.start_reading", lang),
+  aboutBook: await t("book.about_book", lang),
+  bookInfo: await t("book.information", lang),
+  page: await t("book.page", lang),
+  pages: await t("book.pages", lang),
+  aboutAuthor: await t("book.about_author", lang),
+  // Reading level translations
+  levelBasic: await t("book.level.basic", lang),
+  levelEasy: await t("book.level.easy", lang),
+  levelMedium: await t("book.level.medium", lang),
+  levelDifficult: await t("book.level.difficult", lang),
+  levelHard: await t("book.level.hard", lang),
+  // Stats translations
+  statsWords: await t("book.stats.words", lang),
+  statsChapters: await t("book.stats.chapters", lang),
+  statsIllustrations: await t("book.stats.illustrations", lang),
+  statsLix: await t("book.stats.lix", lang),
+  availableLevels: await t("book.available_levels", lang),
+  // New translations for redesigned page
+  excerpt: await t("book.excerpt", lang),
+  readingExperience: await t("book.reading_experience", lang),
+  readingExperienceIntro: await t("book.reading_experience_intro", lang),
+  // Level-specific reading buttons
+  readNow: await t("book.read_now", lang),
+  readInLevel: await t("book.read_in_level", lang),
+  seeMoreBooks: await t("book.see_more_books", lang),
+  hideReadingExperience: await t("book.hide_reading_experience", lang),
+};
+
+const booksUrl = localizedRoute(lang, "books");
+
+// Helper to get level label
+const getLevelLabel = (level: string) => {
+  switch (level) {
+    case 'basic': return translations.levelBasic;
+    case 'easy': return translations.levelEasy;
+    case 'medium': return translations.levelMedium;
+    case 'difficult': return translations.levelDifficult;
+    case 'hard': return translations.levelHard;
+    default: return level;
+  }
+};
+
+// Helper to get level-specific reading button text
+const getReadInLevelText = (level: string) => {
+  const levelLabel = getLevelLabel(level).toLowerCase();
+  return translations.readInLevel.replace('{level}', levelLabel);
+};
+---
+
+<Layout title={`${bookData.title} - ReadFlow`} description={bookData.description}>
+  <article class="book-detail">
+    <!-- Top Section: Cover, Title, Author, Excerpt -->
+    <div class="book-header">
+      {
+        bookData.cover_image && (
+          <img
+            src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${bookData.cover_image}`}
+            alt={bookData.title}
+          />
+        )
+      }
+      <div class="book-meta">
+        <h1>{bookData.title}</h1>
+        {authorData && (
+          <p class="author">
+            {translations.by} <a href={`/${lang}/books/${authorData.slug}`}>{authorData.name}</a>
+          </p>
+        )}
+
+        {bookData.excerpt && (
+          <div class="excerpt-content" set:html={bookData.excerpt}></div>
+        )}
+
+        {/* Read Now Button - direct link to start reading. href is rewritten
+            client-side to honour the user's saved reading level (see script). */}
+        {bookContentStats.length > 0 && (
+          <div class="read-now-action">
+            <a
+              href={`/reader/${lang}/${author}/${book}/level/${bookContentStats[0]?.reading_level || 'easy'}/page/1`}
+              class="btn btn-primary btn-large"
+              id="read-now-btn"
+              data-base-url={`/reader/${lang}/${author}/${book}`}
+              data-available-levels={JSON.stringify(bookContentStats.map(s => s.reading_level))}
+            >
+              {translations.readNow}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Reading Experience Section -->
+    {
+      bookContentStats.length > 0 ? (
+        <section class="reading-experience-section" id="reading-experience-section" hidden>
+          <button
+            type="button"
+            class="hide-section-btn"
+            id="hide-reading-experience-btn"
+            aria-label={translations.hideReadingExperience}
+            title={translations.hideReadingExperience}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <h2>{translations.readingExperience}</h2>
+
+          <p class="reading-experience-intro">{translations.readingExperienceIntro}</p>
+
+          {/* Reading Level Tabs */}
+          <div class="level-tabs" role="tablist">
+            {bookContentStats.map((stats, index) => (
+              <button
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                class={`level-tab ${index === 0 ? 'active' : ''}`}
+                data-level={stats.reading_level}
+                data-index={index}
+              >
+                {getLevelLabel(stats.reading_level)}
+              </button>
+            ))}
+          </div>
+
+          {/* Statistics Display - Single grid that updates */}
+          <div class="stats-container" data-stats={JSON.stringify(bookContentStats.map(s => ({
+            word_count: s.word_count,
+            chapter_count: s.chapter_count,
+            image_count: s.image_count,
+            lix: s.lix,
+            reading_level: s.reading_level
+          })))} data-level-texts={JSON.stringify(bookContentStats.map(s => getReadInLevelText(s.reading_level)))}>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-value" data-stat="word_count" data-target={bookContentStats[0]?.word_count || 0}>0</span>
+                <span class="stat-label">{translations.statsWords}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" data-stat="chapter_count" data-target={bookContentStats[0]?.chapter_count || 0}>0</span>
+                <span class="stat-label">{translations.statsChapters}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" data-stat="image_count" data-target={bookContentStats[0]?.image_count || 0}>0</span>
+                <span class="stat-label">{translations.statsIllustrations}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" data-stat="lix" data-target={bookContentStats[0]?.lix || 0}>0</span>
+                <span class="stat-label">{translations.statsLix}</span>
+              </div>
+            </div>
+          </div>
+
+          {bookData.instruction && (
+            <div class="info-text" set:html={bookData.instruction}></div>
+          )}
+
+          {/* Start Reading Button - with level-specific text */}
+          <div class="actions">
+            <a
+              href={`/reader/${lang}/${author}/${book}/level/${bookContentStats[0]?.reading_level || 'easy'}/page/1`}
+              class="btn btn-primary"
+              id="start-reading-btn"
+              data-base-url={`/reader/${lang}/${author}/${book}`}
+            >
+              {getReadInLevelText(bookContentStats[0]?.reading_level || 'easy')}
+            </a>
+          </div>
+        </section>
+      ) : null
+    }
+
+    <!-- About the Book Section -->
+    {(bookData.description || authorData) && (
+      <section class="about-book-section">
+        <h2>{translations.aboutBook}</h2>
+        <div class="about-book-content">
+          {bookData.description && (
+            <div class="book-description">
+              <div class="description-content" set:html={bookData.description}></div>
+            </div>
+          )}
+          {authorData && (
+            <div class="author-info">
+              {authorData.photo && (
+                <img
+                  src={`${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${authorData.photo}`}
+                  alt={authorData.name}
+                  class="author-photo"
+                />
+              )}
+              <div>
+                <h3><a href={`/${lang}/books/${authorData.slug}`}>{authorData.name}</a></h3>
+                {authorData.bio && (
+                  <div class="bio-content" set:html={authorData.bio}></div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <div class="see-more-books-action">
+      <a href={booksUrl} class="btn btn-secondary">{translations.seeMoreBooks}</a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .book-detail {
+  }
+
+  .book-header {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .book-header img {
+    width: 300px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  .book-meta {
+    flex: 1;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .author {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .author a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .author a:hover {
+    text-decoration: underline;
+  }
+
+  .excerpt-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    font-style: italic;
+  }
+
+  .excerpt-content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .excerpt-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .read-now-action {
+    margin-top: 1.5rem;
+  }
+
+  .btn-large {
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+  }
+
+  .description-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+  }
+
+  .description-content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .description-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* Dyslexia-friendly minimum touch target */
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+    box-shadow: 0 2px 4px rgba(15, 42, 145, 0.2);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 4px 8px rgba(15, 42, 145, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: var(--primary);
+    text-decoration: none;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+
+  .btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .see-more-books-action {
+    margin: 3rem 0 1rem;
+  }
+
+  /* Reading Experience Section */
+  .reading-experience-section {
+    position: relative;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--bg-alt);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+  }
+
+  .hide-section-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    border-radius: 50%;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .hide-section-btn:hover {
+    background: rgba(15, 42, 145, 0.08);
+    color: var(--primary);
+  }
+
+  .reading-experience-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .reading-experience-intro {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
+
+  .pages-count {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .pages-count strong {
+    color: var(--primary);
+    font-size: 1.5rem;
+  }
+
+  /* Level tabs */
+  .level-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .level-tab {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-light);
+  }
+
+  .level-tab:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .level-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  /* Stats container */
+  .stats-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 0;
+    margin: 1.5rem 0;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+    min-width: 5ch; /* Space for up to 99999 */
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+  }
+
+  .info-text {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* About the Book Section */
+  .about-book-section {
+    margin-top: 3rem;
+  }
+
+  .about-book-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-book-content {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .book-description {
+    flex: 1;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .author-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+
+  .author-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .author-info h3 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .author-info h3 a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .bio-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #4b5563;
+  }
+
+  .bio-content :global(p) {
+    margin-bottom: 0.75rem;
+  }
+
+  .bio-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .book-detail {
+      padding: 1rem;
+    }
+
+    .book-header {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .book-header img {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .reading-experience-section {
+      padding: 1.5rem;
+    }
+
+    .about-book-content {
+      grid-template-columns: 1fr;
+    }
+
+    .author-info {
+      order: -1;
+    }
+
+    .stats-grid {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // Animated number counter with easing
+  function animateNumber(element: HTMLElement, target: number, duration: number = 600) {
+    const start = parseInt(element.textContent || '0');
+    const startTime = performance.now();
+
+    function easeOutExpo(t: number): number {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutExpo(progress);
+      const current = Math.round(start + (target - start) * easedProgress);
+
+      element.textContent = current.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Update stats to show values for a specific level index
+  function updateStats(statsContainer: HTMLElement, levelIndex: number) {
+    const statsData = JSON.parse(statsContainer.getAttribute('data-stats') || '[]');
+    const levelStats = statsData[levelIndex];
+
+    if (!levelStats) return;
+
+    // Animate each stat value to its new target
+    const statElements = statsContainer.querySelectorAll('.stat-value');
+    statElements.forEach((el) => {
+      const statKey = el.getAttribute('data-stat');
+      if (statKey && levelStats[statKey] !== undefined) {
+        const newTarget = levelStats[statKey];
+        el.setAttribute('data-target', newTarget.toString());
+        animateNumber(el as HTMLElement, newTarget);
+      }
+    });
+
+    // Update the start reading button URL and text with the selected level
+    const startReadingBtn = document.getElementById('start-reading-btn') as HTMLAnchorElement;
+    if (startReadingBtn && levelStats.reading_level) {
+      const baseUrl = startReadingBtn.getAttribute('data-base-url') || '';
+      startReadingBtn.href = `${baseUrl}/level/${levelStats.reading_level}/page/1`;
+
+      // Update button text with level-specific text
+      const levelTexts = JSON.parse(statsContainer.getAttribute('data-level-texts') || '[]');
+      if (levelTexts[levelIndex]) {
+        startReadingBtn.textContent = levelTexts[levelIndex];
+      }
+    }
+  }
+
+  // Read saved reading level from reader's localStorage
+  function getSavedLevel(): string | null {
+    try {
+      const raw = localStorage.getItem('reader-settings');
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed?.lixLevel || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Update the top "Read Now" button href to point at the given level
+  function updateReadNowButton(level: string) {
+    const btn = document.getElementById('read-now-btn') as HTMLAnchorElement | null;
+    if (!btn) return;
+    const baseUrl = btn.getAttribute('data-base-url') || '';
+    btn.href = `${baseUrl}/level/${level}/page/1`;
+  }
+
+  // Pick a level for the read-now button: saved level if available for this book,
+  // otherwise fall back to the first available (typically easiest).
+  function pickInitialLevel(availableLevels: string[]): string {
+    const saved = getSavedLevel();
+    if (saved && availableLevels.includes(saved)) return saved;
+    return availableLevels[0] || 'easy';
+  }
+
+  const READING_EXPERIENCE_HIDDEN_KEY = 'readflow-reading-experience-hidden';
+
+  function isReadingExperienceHidden(): boolean {
+    try {
+      return localStorage.getItem(READING_EXPERIENCE_HIDDEN_KEY) === '1';
+    } catch {
+      return false;
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.level-tab');
+    const statsContainer = document.querySelector('.stats-container');
+    const readNowBtn = document.getElementById('read-now-btn');
+    const readingExperienceSection = document.getElementById('reading-experience-section');
+    const hideBtn = document.getElementById('hide-reading-experience-btn');
+
+    // The section is rendered with `hidden` so SSR'd output doesn't flash for users
+    // who have already dismissed it. Reveal it now if the dismissal flag isn't set.
+    if (readingExperienceSection && !isReadingExperienceHidden()) {
+      readingExperienceSection.removeAttribute('hidden');
+    }
+
+    if (hideBtn && readingExperienceSection) {
+      hideBtn.addEventListener('click', () => {
+        readingExperienceSection.setAttribute('hidden', '');
+        try { localStorage.setItem(READING_EXPERIENCE_HIDDEN_KEY, '1'); } catch {}
+      });
+    }
+
+    // Sync the top "Read Now" button with the saved level even when there are
+    // no level tabs (e.g. legacy books without bookContentStats).
+    if (readNowBtn) {
+      const available = JSON.parse(readNowBtn.getAttribute('data-available-levels') || '[]');
+      updateReadNowButton(pickInitialLevel(available));
+    }
+
+    if (!statsContainer) return;
+
+    // Preselect tab matching saved level (fallback to first if not available)
+    const savedLevel = getSavedLevel();
+    let initialIndex = 0;
+    if (savedLevel) {
+      const matchIdx = Array.from(tabs).findIndex(
+        (t) => t.getAttribute('data-level') === savedLevel,
+      );
+      if (matchIdx >= 0) initialIndex = matchIdx;
+    }
+    if (initialIndex !== 0) {
+      tabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      const initialTab = tabs[initialIndex];
+      if (initialTab) {
+        initialTab.classList.add('active');
+        initialTab.setAttribute('aria-selected', 'true');
+      }
+      updateStats(statsContainer as HTMLElement, initialIndex);
+    } else {
+      // Animate initial values for first tab
+      const statElements = statsContainer.querySelectorAll('.stat-value');
+      statElements.forEach((el) => {
+        const target = parseInt(el.getAttribute('data-target') || '0');
+        animateNumber(el as HTMLElement, target);
+      });
+    }
+
+    // Tab click handler
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = parseInt(tab.getAttribute('data-index') || '0');
+
+        // Update tab states
+        tabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        // Update stats with animation
+        updateStats(statsContainer as HTMLElement, index);
+
+        // Keep the top Read Now button in sync with the active tab
+        const level = tab.getAttribute('data-level');
+        if (level) updateReadNowButton(level);
+      });
+    });
+  });
+</script>

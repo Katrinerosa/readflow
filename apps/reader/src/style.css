@@ -1,0 +1,193 @@
+/* Font Face Declarations */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic/OpenDyslexic-Regular.woff2') format('woff2'),
+       url('/fonts/OpenDyslexic/OpenDyslexic-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic/OpenDyslexic-Bold.woff2') format('woff2'),
+       url('/fonts/OpenDyslexic/OpenDyslexic-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic/OpenDyslexic-Italic.woff2') format('woff2'),
+       url('/fonts/OpenDyslexic/OpenDyslexic-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson_Hyperlegible/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson_Hyperlegible/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson_Hyperlegible/AtkinsonHyperlegible-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --primary: #0f2a91;
+  --primary-hover: #0a1f6f;
+  --accent: #ff512b;
+  --text: #1f2937;
+  --text-light: #4B5563;
+  --bg: #FAFAF5; /* Off-white, reduces glare */
+  --bg-alt: #F2F5F7;
+  --bg-cream: #faf8f0; /* Warm cream */
+  --border: #e5e7eb;
+  --shadow: rgba(0, 0, 0, 0.06);
+
+  /* Font stacks */
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  --font-atkinson: "Atkinson Hyperlegible", var(--font-system);
+  --font-opendyslexic: "OpenDyslexic", var(--font-system);
+
+  /* Default font and accessibility settings */
+  --font-reader: var(--font-atkinson);
+  --line-spacing: 1.7;
+  --letter-spacing: 0.02em;
+  --word-spacing: 0.08em;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-system);
+  line-height: 1.6;
+  letter-spacing: var(--letter-spacing);
+  word-spacing: var(--word-spacing);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font variation classes for reader */
+body.font-atkinson {
+  --font-reader: var(--font-atkinson);
+}
+
+body.font-opendyslexic {
+  --font-reader: var(--font-opendyslexic);
+}
+
+body.font-serif {
+  --font-reader: var(--font-serif);
+}
+
+/* Background color variations */
+body.bg-cream {
+  --bg: var(--bg-cream);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  font-weight: 600;
+  word-spacing: normal; /* Reset word spacing for headings */
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.btn {
+  display: inline-block;
+  min-height: 44px; /* Dyslexia-friendly minimum touch target */
+  padding: 0.4rem 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.15s;
+  text-align: center;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: #E5E7EB;
+}
+
+/* Better focus states for accessibility */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

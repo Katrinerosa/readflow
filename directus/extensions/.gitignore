@@ -1,0 +1,18 @@
+# Ignore everything except configuration files
+*
+
+# Keep these files
+!.gitignore
+!package.json
+!package-lock.json
+!extract-extensions.js
+!README.md
+
+# Keep local extensions folder (custom developed extensions)
+!local/
+!local/**
+
+# Ignore build artifacts inside local extensions
+local/**/node_modules/
+local/**/dist/
+local/**/package-lock.json

@@ -1,0 +1,26 @@
+{
+  "name": "directus-extension-sanitize-content",
+  "version": "1.0.0",
+  "description": "Sanitize book content HTML on save — strips Word/Docs junk",
+  "icon": "extension",
+  "keywords": [
+    "directus",
+    "directus-extension",
+    "directus-custom-hook"
+  ],
+  "type": "module",
+  "directus:extension": {
+    "type": "hook",
+    "path": "dist/index.js",
+    "source": "src/index.ts",
+    "host": "^10.10.0 || ^11.0.0"
+  },
+  "scripts": {
+    "build": "directus-extension build",
+    "dev": "directus-extension build -w --no-minify"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "^12.1.4",
+    "typescript": "^5.9.3"
+  }
+}

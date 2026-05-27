@@ -1,0 +1,20 @@
+node_modules
+dist
+.env
+.DS_Store
+*.log
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.cache
+build
+coverage
+.turbo
+.pensel-readflow-config
+*.pdf
+
+# Reader build output (copied from apps/reader build)
+apps/web/public/reader/
+data/*.tar.gz

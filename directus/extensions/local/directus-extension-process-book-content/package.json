@@ -1,0 +1,45 @@
+{
+  "name": "directus-extension-process-book-content",
+  "version": "1.2.0",
+  "description": "Combined operation: analyze readability, sync block audio, sync word audio",
+  "icon": "extension",
+  "keywords": [
+    "directus",
+    "directus-extension",
+    "directus-custom-operation",
+    "readability",
+    "lix",
+    "lettal",
+    "book-content-audio",
+    "word-audio",
+    "tts"
+  ],
+  "type": "module",
+  "directus:extension": {
+    "type": "operation",
+    "path": {
+      "app": "dist/app.js",
+      "api": "dist/api.js"
+    },
+    "source": {
+      "app": "src/app.ts",
+      "api": "src/api.ts"
+    },
+    "host": "^10.10.0 || ^11.0.0"
+  },
+  "scripts": {
+    "test": "tsx src/tests/sanitize.test.ts && tsx src/tests/analyze.test.ts && tsx src/tests/block-audio.test.ts && tsx src/tests/word-audio.test.ts && tsx src/tests/word-explanations.test.ts",
+    "build": "npm run test && directus-extension build",
+    "build:skip-tests": "directus-extension build",
+    "dev": "directus-extension build -w --no-minify"
+  },
+  "dependencies": {
+    "html-entities": "^2.6.0"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "^17.1.2",
+    "@types/node": "^22.19.17",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

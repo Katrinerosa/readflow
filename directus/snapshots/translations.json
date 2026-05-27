@@ -1,0 +1,3401 @@
+[
+  {
+    "key": "about.feature.audio",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Audio narration support for enhanced learning"
+      },
+      {
+        "languages_code": "da",
+        "content": "Lydfortælling til forbedret læring"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio-Erzählung zur verbesserten Lernunterstützung"
+      }
+    ]
+  },
+  {
+    "key": "about.feature.customization",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Customizable text size, line spacing, and background colors"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tilpasselig tekststørrelse, linjeafstand og baggrundsfarver"
+      },
+      {
+        "languages_code": "de",
+        "content": "Anpassbare Textgröße, Zeilenabstand und Hintergrundfarben"
+      }
+    ]
+  },
+  {
+    "key": "about.feature.fonts",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Dyslexia-friendly fonts (OpenDyslexic, Atkinson Hyperlegible)"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ordblindevenlige skrifttyper (OpenDyslexic, Atkinson Hyperlegible)"
+      },
+      {
+        "languages_code": "de",
+        "content": "Legasthenie-freundliche Schriftarten (OpenDyslexic, Atkinson Hyperlegible)"
+      }
+    ]
+  },
+  {
+    "key": "about.feature.readability",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Multiple readability levels (LIX) for each page"
+      },
+      {
+        "languages_code": "da",
+        "content": "Flere læsbarhedsniveauer (LIX) for hver side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Mehrere Lesbarkeitslevels (LIX) für jede Seite"
+      }
+    ]
+  },
+  {
+    "key": "about.features.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Key Features"
+      },
+      {
+        "languages_code": "da",
+        "content": "Nøglefunktioner"
+      },
+      {
+        "languages_code": "de",
+        "content": "Hauptmerkmale"
+      }
+    ]
+  },
+  {
+    "key": "about.mission.text",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "ReadFlow makes reading accessible and enjoyable for all children, especially those with dyslexia. We provide tools and features that support different reading levels and preferences."
+      },
+      {
+        "languages_code": "da",
+        "content": "ReadFlow gør læsning tilgængelig og fornøjelig for alle børn, især dem med ordblindhed. Vi tilbyder værktøjer og funktioner, der understøtter forskellige læseniveauer og præferencer."
+      },
+      {
+        "languages_code": "de",
+        "content": "ReadFlow macht das Lesen für alle Kinder zugänglich und angenehm, besonders für solche mit Legasthenie. Wir bieten Werkzeuge und Funktionen, die verschiedene Lesestufen und Präferenzen unterstützen."
+      }
+    ]
+  },
+  {
+    "key": "about.mission.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Our Mission"
+      },
+      {
+        "languages_code": "da",
+        "content": "Vores mission"
+      },
+      {
+        "languages_code": "de",
+        "content": "Unsere Mission"
+      }
+    ]
+  },
+  {
+    "key": "about.subtitle",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "A reading platform designed for children with dyslexia"
+      },
+      {
+        "languages_code": "da",
+        "content": "En læseplatform designet til børn med ordblindhed"
+      },
+      {
+        "languages_code": "de",
+        "content": "Eine Leseplattform für Kinder mit Legasthenie"
+      }
+    ]
+  },
+  {
+    "key": "about.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "About ReadFlow"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om ReadFlow"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über ReadFlow"
+      }
+    ]
+  },
+  {
+    "key": "author.about_prefix",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "About"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über"
+      }
+    ]
+  },
+  {
+    "key": "author.book_plural",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "books"
+      },
+      {
+        "languages_code": "da",
+        "content": "bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bücher"
+      }
+    ]
+  },
+  {
+    "key": "author.book_singular",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "book"
+      },
+      {
+        "languages_code": "da",
+        "content": "bog"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buch"
+      }
+    ]
+  },
+  {
+    "key": "author.books_by",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "Books by"
+      },
+      {
+        "languages_code": "da",
+        "content": "Bøger af"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bücher von"
+      }
+    ]
+  },
+  {
+    "key": "author.no_books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "This author has no published books yet."
+      },
+      {
+        "languages_code": "da",
+        "content": "Denne forfatter har ingen udgivne bøger endnu."
+      },
+      {
+        "languages_code": "de",
+        "content": "Dieser Autor hat noch keine veröffentlichten Bücher."
+      }
+    ]
+  },
+  {
+    "key": "author.published",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "published"
+      },
+      {
+        "languages_code": "da",
+        "content": "udgivet"
+      },
+      {
+        "languages_code": "de",
+        "content": "veröffentlicht"
+      }
+    ]
+  },
+  {
+    "key": "book.about_author",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "About the Author"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om forfatteren"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über den Autor"
+      }
+    ]
+  },
+  {
+    "key": "book.about_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "About this Book"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om denne bog"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über dieses Buch"
+      }
+    ]
+  },
+  {
+    "key": "book.available_levels",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Available reading levels"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tilgængelige læseniveauer"
+      },
+      {
+        "languages_code": "de",
+        "content": "Verfügbare Lesestufen"
+      }
+    ]
+  },
+  {
+    "key": "book.dyslexia_info",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      }
+    ]
+  },
+  {
+    "key": "book.excerpt",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Excerpt"
+      },
+      {
+        "languages_code": "da",
+        "content": "Uddrag"
+      },
+      {
+        "languages_code": "de",
+        "content": "Auszug"
+      }
+    ]
+  },
+  {
+    "key": "book.information",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "Book Information"
+      },
+      {
+        "languages_code": "da",
+        "content": "Boginformation"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buchinformationen"
+      }
+    ]
+  },
+  {
+    "key": "book.level.basic",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Beginner"
+      },
+      {
+        "languages_code": "da",
+        "content": "Begynder"
+      },
+      {
+        "languages_code": "de",
+        "content": "Anfänger"
+      }
+    ]
+  },
+  {
+    "key": "book.level.difficult",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Difficult"
+      },
+      {
+        "languages_code": "da",
+        "content": "Svær"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schwierig"
+      }
+    ]
+  },
+  {
+    "key": "book.level.easy",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Easy"
+      },
+      {
+        "languages_code": "da",
+        "content": "Let"
+      },
+      {
+        "languages_code": "de",
+        "content": "Einfach"
+      }
+    ]
+  },
+  {
+    "key": "book.level.hard",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Advanced"
+      },
+      {
+        "languages_code": "da",
+        "content": "Avanceret"
+      },
+      {
+        "languages_code": "de",
+        "content": "Fortgeschritten"
+      }
+    ]
+  },
+  {
+    "key": "book.level.medium",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Medium"
+      },
+      {
+        "languages_code": "da",
+        "content": "Medium"
+      },
+      {
+        "languages_code": "de",
+        "content": "Mittel"
+      }
+    ]
+  },
+  {
+    "key": "book.page",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "page"
+      },
+      {
+        "languages_code": "da",
+        "content": "side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Seite"
+      }
+    ]
+  },
+  {
+    "key": "book.pages",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "pages"
+      },
+      {
+        "languages_code": "da",
+        "content": "sider"
+      },
+      {
+        "languages_code": "de",
+        "content": "Seiten"
+      }
+    ]
+  },
+  {
+    "key": "book.read_in_level",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Read in {level} version"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs i {level} udgave"
+      },
+      {
+        "languages_code": "de",
+        "content": "In {level} Version lesen"
+      }
+    ]
+  },
+  {
+    "key": "book.read_now",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Read Now"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs nu"
+      },
+      {
+        "languages_code": "de",
+        "content": "Jetzt lesen"
+      }
+    ]
+  },
+  {
+    "key": "book.reading_experience",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Reading Experience"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læseoplevelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Leseerfahrung"
+      }
+    ]
+  },
+  {
+    "key": "book.reading_experience_intro",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Pick a reading level that feels right for you. Each level shows how many words, chapters, and pictures the book has."
+      },
+      {
+        "languages_code": "da",
+        "content": "Vælg et læseniveau, der passer til dig. Hvert niveau viser, hvor mange ord, kapitler og billeder bogen har."
+      },
+      {
+        "languages_code": "de",
+        "content": "Wähle ein Leseniveau, das zu dir passt. Jedes Niveau zeigt, wie viele Wörter, Kapitel und Bilder das Buch hat."
+      }
+    ]
+  },
+  {
+    "key": "book.start_reading",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "Start Reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "Begynd at læse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Lesen beginnen"
+      }
+    ]
+  },
+  {
+    "key": "book.stats.chapters",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Chapters"
+      },
+      {
+        "languages_code": "da",
+        "content": "Kapitler"
+      },
+      {
+        "languages_code": "de",
+        "content": "Kapitel"
+      }
+    ]
+  },
+  {
+    "key": "book.stats.illustrations",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Illustrations"
+      },
+      {
+        "languages_code": "da",
+        "content": "Illustrationer"
+      },
+      {
+        "languages_code": "de",
+        "content": "Illustrationen"
+      }
+    ]
+  },
+  {
+    "key": "book.stats.lix",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "LIX Score"
+      },
+      {
+        "languages_code": "da",
+        "content": "LIX-tal"
+      },
+      {
+        "languages_code": "de",
+        "content": "LIX-Wert"
+      }
+    ]
+  },
+  {
+    "key": "book.stats.words",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Words"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ord"
+      },
+      {
+        "languages_code": "de",
+        "content": "Wörter"
+      }
+    ]
+  },
+  {
+    "key": "books.about_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "About the Book"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om bogen"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über das Buch"
+      }
+    ]
+  },
+  {
+    "key": "books.no_books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "<p>No book available</p>"
+      },
+      {
+        "languages_code": "da",
+        "content": "<p>Ingen b&oslash;ger</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Keine B&uuml;cher verf&uuml;gbar</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      }
+    ]
+  },
+  {
+    "key": "books.read_now",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "Read Now"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs nu"
+      },
+      {
+        "languages_code": "de",
+        "content": "Jetzt lesen"
+      }
+    ]
+  },
+  {
+    "key": "books.start_reading",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Start Reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs nu"
+      },
+      {
+        "languages_code": "de",
+        "content": "Jetzt lesen"
+      }
+    ]
+  },
+  {
+    "key": "books.subtitle",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Browse our collection of dyslexia-friendly books"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gennemse vores samling af ordblindevenlige bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Durchsuchen Sie unsere Sammlung von Legasthenie-freundlichen Büchern"
+      }
+    ]
+  },
+  {
+    "key": "books.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "<p>Books</p>"
+      },
+      {
+        "languages_code": "da",
+        "content": "<p>B&oslash;ger</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>B&uuml;cher</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      }
+    ]
+  },
+  {
+    "key": "common.by",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": null
+      },
+      {
+        "languages_code": "da",
+        "content": null
+      },
+      {
+        "languages_code": "de",
+        "content": null
+      },
+      {
+        "languages_code": "en",
+        "content": "by"
+      },
+      {
+        "languages_code": "da",
+        "content": "af"
+      },
+      {
+        "languages_code": "de",
+        "content": "von"
+      }
+    ]
+  },
+  {
+    "key": "common.supported_by",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>St&oslash;ttet af</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Unterst&uuml;tzt von</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>Supported by</p>"
+      }
+    ]
+  },
+  {
+    "key": "error.how_to_fix",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "How to fix this"
+      },
+      {
+        "languages_code": "da",
+        "content": "Sådan løser du dette"
+      },
+      {
+        "languages_code": "de",
+        "content": "So beheben Sie dies"
+      }
+    ]
+  },
+  {
+    "key": "error.instruction.enable_read",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Enable READ permission for: books, book_sections, section_levels, authors"
+      },
+      {
+        "languages_code": "da",
+        "content": "Aktivér LÆSE-tilladelse for: bøger, bogsektioner, sektionsniveauer, forfattere"
+      },
+      {
+        "languages_code": "de",
+        "content": "Aktivieren Sie die LESE-Berechtigung für: Bücher, Buchsektionen, Sektionsebenen, Autoren"
+      }
+    ]
+  },
+  {
+    "key": "error.instruction.goto_settings",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Go to Settings → Roles & Permissions → Public"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gå til Indstillinger → Roller & Tilladelser → Offentlig"
+      },
+      {
+        "languages_code": "de",
+        "content": "Gehen Sie zu Einstellungen → Rollen & Berechtigungen → Öffentlich"
+      }
+    ]
+  },
+  {
+    "key": "error.instruction.open_directus",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Open Directus at"
+      },
+      {
+        "languages_code": "da",
+        "content": "Åbn Directus på"
+      },
+      {
+        "languages_code": "de",
+        "content": "Öffnen Sie Directus unter"
+      }
+    ]
+  },
+  {
+    "key": "error.instruction.refresh",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Refresh this page"
+      },
+      {
+        "languages_code": "da",
+        "content": "Opdater denne side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Aktualisieren Sie diese Seite"
+      }
+    ]
+  },
+  {
+    "key": "feature.one.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Explore our curated collection of books from talented authors around the world."
+      },
+      {
+        "languages_code": "da",
+        "content": "Udforsk vores kuraterede samling af bøger fra talentfulde forfattere rundt om i verden."
+      },
+      {
+        "languages_code": "de",
+        "content": "Entdecken Sie unsere kuratierte Sammlung von Büchern talentierter Autoren aus aller Welt."
+      }
+    ]
+  },
+  {
+    "key": "feature.one.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Browse & Discover"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gennemse & Opdag"
+      },
+      {
+        "languages_code": "de",
+        "content": "Durchsuchen & Entdecken"
+      }
+    ]
+  },
+  {
+    "key": "feature.three.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Connect directly with authors and support their creative work."
+      },
+      {
+        "languages_code": "da",
+        "content": "Kom i direkte kontakt med forfattere og støt deres kreative arbejde."
+      },
+      {
+        "languages_code": "de",
+        "content": "Verbinden Sie sich direkt mit Autoren und unterstützen Sie ihre kreative Arbeit."
+      }
+    ]
+  },
+  {
+    "key": "feature.three.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Support Authors"
+      },
+      {
+        "languages_code": "da",
+        "content": "Støt Forfattere"
+      },
+      {
+        "languages_code": "de",
+        "content": "Unterstützen Sie Autoren"
+      }
+    ]
+  },
+  {
+    "key": "feature.two.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Enjoy a seamless reading experience with adjustable fonts and readability levels."
+      },
+      {
+        "languages_code": "da",
+        "content": "Nyd en problemfri læseoplevelse med justerbare skrifttyper og læsbarhedsniveauer."
+      },
+      {
+        "languages_code": "de",
+        "content": "Genießen Sie ein nahtloses Leseerlebnis mit anpassbaren Schriftarten und Lesbarkeitsstufen."
+      }
+    ]
+  },
+  {
+    "key": "feature.two.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Read & Progress"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs & Fremskridt"
+      },
+      {
+        "languages_code": "de",
+        "content": "Lesen & Fortschritt"
+      }
+    ]
+  },
+  {
+    "key": "feedback.bug.description.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "What went wrong?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvad gik galt?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.bug.description.placeholder",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Please describe what happened..."
+      },
+      {
+        "languages_code": "da",
+        "content": "Beskriv venligst hvad der skete..."
+      },
+      {
+        "languages_code": "de",
+        "content": "Bitte beschreiben Sie, was passiert ist..."
+      }
+    ]
+  },
+  {
+    "key": "feedback.bug.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Help Us Fix It"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hjælp os med at rette det"
+      },
+      {
+        "languages_code": "de",
+        "content": "Helfen Sie uns, es zu beheben"
+      }
+    ]
+  },
+  {
+    "key": "feedback.bug.welcome",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Found something not working right? Let us know and we'll look into it."
+      },
+      {
+        "languages_code": "da",
+        "content": "Fundet noget der ikke virker rigtigt? Fortæl os det, så vil vi undersøge det."
+      },
+      {
+        "languages_code": "de",
+        "content": "Haben Sie etwas gefunden, das nicht richtig funktioniert? Lassen Sie es uns wissen."
+      }
+    ]
+  },
+  {
+    "key": "feedback.button.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Feedback"
+      },
+      {
+        "languages_code": "da",
+        "content": "Feedback"
+      },
+      {
+        "languages_code": "de",
+        "content": "Feedback"
+      }
+    ]
+  },
+  {
+    "key": "feedback.cancel",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Cancel"
+      },
+      {
+        "languages_code": "da",
+        "content": "Annuller"
+      },
+      {
+        "languages_code": "de",
+        "content": "Abbrechen"
+      }
+    ]
+  },
+  {
+    "key": "feedback.close",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Close"
+      },
+      {
+        "languages_code": "da",
+        "content": "Luk"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schließen"
+      }
+    ]
+  },
+  {
+    "key": "feedback.error.message",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "We could not send your feedback. Please try again."
+      },
+      {
+        "languages_code": "da",
+        "content": "Vi kunne ikke sende din feedback. Venligst forsøg igen."
+      },
+      {
+        "languages_code": "de",
+        "content": "Wir konnten Ihr Feedback nicht senden. Bitte versuchen Sie es erneut."
+      }
+    ]
+  },
+  {
+    "key": "feedback.error.retry",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Try again"
+      },
+      {
+        "languages_code": "da",
+        "content": "Forsøg igen"
+      },
+      {
+        "languages_code": "de",
+        "content": "Erneut versuchen"
+      }
+    ]
+  },
+  {
+    "key": "feedback.error.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Something went wrong"
+      },
+      {
+        "languages_code": "da",
+        "content": "Noget gik galt"
+      },
+      {
+        "languages_code": "de",
+        "content": "Etwas ist schief gelaufen"
+      }
+    ]
+  },
+  {
+    "key": "feedback.feature.description.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Describe your idea"
+      },
+      {
+        "languages_code": "da",
+        "content": "Beskriv din idé"
+      },
+      {
+        "languages_code": "de",
+        "content": "Beschreiben Sie Ihre Idee"
+      }
+    ]
+  },
+  {
+    "key": "feedback.feature.description.placeholder",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "What feature would you like to see?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvilken funktion kunne du tænke dig at se?"
+      },
+      {
+        "languages_code": "de",
+        "content": "Welche Funktion würden Sie gerne sehen?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.feature.welcome",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Have an idea to make ReadFlow better? We would love to hear it!"
+      },
+      {
+        "languages_code": "da",
+        "content": "Har du en idé til at gøre ReadFlow bedre? Vi vil meget gerne høre den!"
+      },
+      {
+        "languages_code": "de",
+        "content": "Haben Sie eine Idee, wie wir ReadFlow verbessern können? Wir freuen uns darauf!"
+      }
+    ]
+  },
+  {
+    "key": "feedback.message.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Your message"
+      },
+      {
+        "languages_code": "da",
+        "content": "Din besked"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ihre Nachricht"
+      }
+    ]
+  },
+  {
+    "key": "feedback.message.label.feedback",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Your feedback"
+      },
+      {
+        "languages_code": "da",
+        "content": "Din feedback"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ihr Feedback"
+      }
+    ]
+  },
+  {
+    "key": "feedback.message.label.review",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Your review"
+      },
+      {
+        "languages_code": "da",
+        "content": "Din anmeldelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ihre Bewertung"
+      }
+    ]
+  },
+  {
+    "key": "feedback.message.placeholder",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "What do you like? What could be better?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvad kan du lide? Hvad kunne være bedre?"
+      },
+      {
+        "languages_code": "de",
+        "content": "Was gefällt Ihnen? Was könnte besser sein?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.modal.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Share Your Thoughts"
+      },
+      {
+        "languages_code": "da",
+        "content": "Del dine tanker"
+      },
+      {
+        "languages_code": "de",
+        "content": "Teilen Sie Ihre Gedanken"
+      }
+    ]
+  },
+  {
+    "key": "feedback.modal.welcome",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "We'd love to hear from you! Your feedback helps us make ReadFlow better for everyone."
+      },
+      {
+        "languages_code": "da",
+        "content": "Vi vil gerne høre fra dig! Din feedback hjælper os med at gøre ReadFlow bedre for alle."
+      },
+      {
+        "languages_code": "de",
+        "content": "Wir freuen uns über Ihre Nachricht! Ihr Feedback hilft uns, ReadFlow für alle zu verbessern."
+      }
+    ]
+  },
+  {
+    "key": "feedback.rating.hint",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Click the stars to rate your experience"
+      },
+      {
+        "languages_code": "da",
+        "content": "Klik på stjernerne for at bedømme din oplevelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Klicken Sie auf die Sterne, um Ihre Erfahrung zu bewerten"
+      }
+    ]
+  },
+  {
+    "key": "feedback.rating.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "How are you enjoying ReadFlow?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvad synes du om ReadFlow?"
+      },
+      {
+        "languages_code": "de",
+        "content": "Wie gefällt Ihnen ReadFlow?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.rating.label.book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "How do you enjoy the book?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvad synes du om bogen?"
+      },
+      {
+        "languages_code": "de",
+        "content": "Wie gefällt Ihnen das Buch?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.scope.book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "About this book:"
+      },
+      {
+        "languages_code": "da",
+        "content": "Anmeld bogen:"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über dieses Buch:"
+      }
+    ]
+  },
+  {
+    "key": "feedback.scope.general",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "General feedback about ReadFlow"
+      },
+      {
+        "languages_code": "da",
+        "content": "Generel feedback om ReadFlow"
+      },
+      {
+        "languages_code": "de",
+        "content": "Allgemeines Feedback zu ReadFlow"
+      }
+    ]
+  },
+  {
+    "key": "feedback.scope.label",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "What is your feedback about?"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvad handler din feedback om?"
+      },
+      {
+        "languages_code": "de",
+        "content": "Worum geht es in Ihrem Feedback?"
+      }
+    ]
+  },
+  {
+    "key": "feedback.submit",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Ihre Nachricht"
+      },
+      {
+        "languages_code": "da",
+        "content": "Send feedback"
+      },
+      {
+        "languages_code": "de",
+        "content": "Feedback senden"
+      }
+    ]
+  },
+  {
+    "key": "feedback.submit.bug",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Send Report"
+      },
+      {
+        "languages_code": "da",
+        "content": "Send rapport"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bericht senden"
+      }
+    ]
+  },
+  {
+    "key": "feedback.submit.feature",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Send request"
+      },
+      {
+        "languages_code": "da",
+        "content": "Send ønske"
+      },
+      {
+        "languages_code": "de",
+        "content": "Anfrage senden"
+      }
+    ]
+  },
+  {
+    "key": "feedback.success.bug",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Your bug report has been received. We'll look into it!"
+      },
+      {
+        "languages_code": "da",
+        "content": "Din fejlrapport er modtaget. Vi vil se på det!"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ihre Fehlermeldung wurde empfangen. Wir werden uns darum kümmern!"
+      }
+    ]
+  },
+  {
+    "key": "feedback.success.message",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Your feedback has been received. We appreciate you taking the time to help us improve!"
+      },
+      {
+        "languages_code": "da",
+        "content": "Din feedback er modtaget. Vi sætter pris på at du tog dig tid til at hjælpe os med at forbedre!"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ihr Feedback wurde empfangen. Wir schätzen es, dass Sie sich die Zeit genommen haben, uns zu helfen!"
+      }
+    ]
+  },
+  {
+    "key": "feedback.success.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Thank You!"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tak!"
+      },
+      {
+        "languages_code": "de",
+        "content": "Vielen Dank!"
+      }
+    ]
+  },
+  {
+    "key": "feedback.tab.bug",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Report Bug"
+      },
+      {
+        "languages_code": "da",
+        "content": "Rapporter fejl"
+      },
+      {
+        "languages_code": "de",
+        "content": "Fehler melden"
+      }
+    ]
+  },
+  {
+    "key": "feedback.tab.feature",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Feature request"
+      },
+      {
+        "languages_code": "da",
+        "content": "Funktionsønske"
+      },
+      {
+        "languages_code": "de",
+        "content": "Funktionswunsch"
+      }
+    ]
+  },
+  {
+    "key": "feedback.tab.feedback",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Feedback"
+      },
+      {
+        "languages_code": "da",
+        "content": "Feedback"
+      },
+      {
+        "languages_code": "de",
+        "content": "Feedback"
+      }
+    ]
+  },
+  {
+    "key": "feedback.tab.review",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Book Review"
+      },
+      {
+        "languages_code": "da",
+        "content": "Boganmeldelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buchrezension"
+      }
+    ]
+  },
+  {
+    "key": "footer.made_by",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "product by Pensel og Pixel"
+      },
+      {
+        "languages_code": "da",
+        "content": "produkt af Pensel og Pixel"
+      },
+      {
+        "languages_code": "de",
+        "content": "Produkt von Pensel og Pixel"
+      }
+    ]
+  },
+  {
+    "key": "footer.site_name",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "ReadFlow - product of <a href=\"https://pensel-pixel.dk/\" target=\"_blank\" rel=\"noopener\">Pensel &amp; Pixel</a>"
+      },
+      {
+        "languages_code": "da",
+        "content": "ReadFlow - produkt af <a href=\"https://pensel-pixel.dk/\" target=\"_blank\" rel=\"noopener\">Pensel &amp; Pixel</a>"
+      },
+      {
+        "languages_code": "de",
+        "content": "ReadFlow - Produkt von <a href=\"https://pensel-pixel.dk/\" target=\"_blank\" rel=\"noopener\">Pensel &amp; Pixel</a>"
+      }
+    ]
+  },
+  {
+    "key": "home.browse_books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "<p>Browse books</p>"
+      },
+      {
+        "languages_code": "da",
+        "content": "<p>Gennemse b&oslash;ger</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bücher durchsuchen"
+      }
+    ]
+  },
+  {
+    "key": "home.choose_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Choose book"
+      },
+      {
+        "languages_code": "da",
+        "content": "Vælg bog"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buch wählen"
+      }
+    ]
+  },
+  {
+    "key": "home.feature.browse.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Explore our collection of books from talented authors across various genres."
+      },
+      {
+        "languages_code": "da",
+        "content": "Udforsk vores samling af bøger fra talentfulde forfattere på tværs af forskellige genrer."
+      },
+      {
+        "languages_code": "de",
+        "content": "Erkunden Sie unsere Sammlung von Büchern talentierter Autoren aus verschiedenen Genres."
+      }
+    ]
+  },
+  {
+    "key": "home.feature.browse.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Browse & Discover"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gennemse og opdag"
+      },
+      {
+        "languages_code": "de",
+        "content": "Durchsuchen und entdecken"
+      }
+    ]
+  },
+  {
+    "key": "home.feature.read.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Start reading immediately with free content, unlock more as you go."
+      },
+      {
+        "languages_code": "da",
+        "content": "Begynd at læse med det samme med gratis indhold, lås mere op efterhånden."
+      },
+      {
+        "languages_code": "de",
+        "content": "Beginnen Sie sofort mit kostenlosen Inhalten zu lesen, schalten Sie mehr frei, während Sie weiterlesen."
+      }
+    ]
+  },
+  {
+    "key": "home.feature.read.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Read Progressively"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læs progressivt"
+      },
+      {
+        "languages_code": "de",
+        "content": "Progressiv lesen"
+      }
+    ]
+  },
+  {
+    "key": "home.feature.support.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Show your appreciation by supporting the authors you love directly."
+      },
+      {
+        "languages_code": "da",
+        "content": "Vis din påskønnelse ved at støtte de forfattere, du elsker direkte."
+      },
+      {
+        "languages_code": "de",
+        "content": "Zeigen Sie Ihre Wertschätzung, indem Sie die Autoren, die Sie lieben, direkt unterstützen."
+      }
+    ]
+  },
+  {
+    "key": "home.feature.support.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Support Authors"
+      },
+      {
+        "languages_code": "da",
+        "content": "Støt forfattere"
+      },
+      {
+        "languages_code": "de",
+        "content": "Autoren unterstützen"
+      }
+    ]
+  },
+  {
+    "key": "home.featured_authors",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Featured Authors"
+      },
+      {
+        "languages_code": "da",
+        "content": "Fremhævede forfattere"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ausgewählte Autoren"
+      }
+    ]
+  },
+  {
+    "key": "home.featured_books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Featured Books"
+      },
+      {
+        "languages_code": "da",
+        "content": "Udvalgte bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ausgewählte Bücher"
+      }
+    ]
+  },
+  {
+    "key": "home.hero.subtitle",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Here begins the journey into stories that adapt to you – with words, sound, and images that grow with you."
+      },
+      {
+        "languages_code": "da",
+        "content": "Her begynder rejsen ind i historier, der tilpasser sig dig – med ord, lyd og billeder, der vokser med dig."
+      },
+      {
+        "languages_code": "de",
+        "content": "Hier beginnt die Reise in Geschichten, die sich an dich anpassen – mit Wörtern, Klängen und Bildern, die mit dir wachsen."
+      }
+    ]
+  },
+  {
+    "key": "home.how_it_works",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "How It Works"
+      },
+      {
+        "languages_code": "da",
+        "content": "Sådan fungerer det"
+      },
+      {
+        "languages_code": "de",
+        "content": "So funktioniert es"
+      }
+    ]
+  },
+  {
+    "key": "home.no_books_admin",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>Der er ingen b&oslash;ger at vise</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Es gibt keine B&uuml;cher zum Anzeigen.</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>There are no books to display.</p>"
+      }
+    ]
+  },
+  {
+    "key": "home.step.one",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "1. Pick a book"
+      },
+      {
+        "languages_code": "da",
+        "content": "1. Vælg en bog"
+      },
+      {
+        "languages_code": "de",
+        "content": "1. Wähle ein Buch"
+      }
+    ]
+  },
+  {
+    "key": "home.step.three",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "3. Start reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "3. Begynd at læse"
+      },
+      {
+        "languages_code": "de",
+        "content": "3. Fang an zu lesen"
+      }
+    ]
+  },
+  {
+    "key": "home.step.two",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "2. Adjust the level"
+      },
+      {
+        "languages_code": "da",
+        "content": "2. Juster niveauet"
+      },
+      {
+        "languages_code": "de",
+        "content": "2. Passe das Niveau an"
+      }
+    ]
+  },
+  {
+    "key": "home.try_edition",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Try edition:"
+      },
+      {
+        "languages_code": "da",
+        "content": "Prøv udgave:"
+      },
+      {
+        "languages_code": "de",
+        "content": "Probeausgabe:"
+      }
+    ]
+  },
+  {
+    "key": "home.view_all",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "View All"
+      },
+      {
+        "languages_code": "da",
+        "content": "Se alle"
+      },
+      {
+        "languages_code": "de",
+        "content": "Alle anzeigen"
+      }
+    ]
+  },
+  {
+    "key": "home.welcome",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Welcome to ReadFlow"
+      },
+      {
+        "languages_code": "da",
+        "content": "Velkommen til ReadFlow"
+      },
+      {
+        "languages_code": "de",
+        "content": "Willkommen bei ReadFlow"
+      }
+    ]
+  },
+  {
+    "key": "meta.description",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "A progressive book reading platform"
+      },
+      {
+        "languages_code": "da",
+        "content": "En progressiv læseplatform for bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Eine progressive Leseplattform für Bücher"
+      }
+    ]
+  },
+  {
+    "key": "nav.about",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "About"
+      },
+      {
+        "languages_code": "da",
+        "content": "Om"
+      },
+      {
+        "languages_code": "de",
+        "content": "Über"
+      }
+    ]
+  },
+  {
+    "key": "nav.books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Books"
+      },
+      {
+        "languages_code": "da",
+        "content": "Bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bücher"
+      }
+    ]
+  },
+  {
+    "key": "nav.home",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Home"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hjem"
+      },
+      {
+        "languages_code": "de",
+        "content": "Startseite"
+      }
+    ]
+  },
+  {
+    "key": "nav.tagline",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>-l&aelig;s i dit eget tempo</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "-read at your own pace"
+      },
+      {
+        "languages_code": "de",
+        "content": "-lese in deinem Tempo"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.available",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Audio available for this page"
+      },
+      {
+        "languages_code": "da",
+        "content": "Lyd tilgængelig for denne side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio für diese Seite verfügbar"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.close",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Close audio controls"
+      },
+      {
+        "languages_code": "da",
+        "content": "Luk lydkontroller"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio-Steuerung schließen"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.dragToMove",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Drag to move"
+      },
+      {
+        "languages_code": "da",
+        "content": "Træk for at flytte"
+      },
+      {
+        "languages_code": "de",
+        "content": "Ziehen zum Verschieben"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.pause",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Pause audio"
+      },
+      {
+        "languages_code": "da",
+        "content": "Pause lyd"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio pausieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.play",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Play audio"
+      },
+      {
+        "languages_code": "da",
+        "content": "Afspil lyd"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio abspielen"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.restart",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Restart audio"
+      },
+      {
+        "languages_code": "da",
+        "content": "Genstart lyd"
+      },
+      {
+        "languages_code": "de",
+        "content": "Audio neu starten"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordHighlight",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Word highlighting"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ord-fremhævning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Worthervorhebung"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordHighlightOff",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Click to enable word highlighting"
+      },
+      {
+        "languages_code": "da",
+        "content": "Klik for at aktivere ord-fremhævning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Klicken Sie, um Worthervorhebung zu aktivieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordHighlightOn",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Click to disable word highlighting"
+      },
+      {
+        "languages_code": "da",
+        "content": "Klik for at deaktivere ord-fremhævning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Klicken Sie, um Worthervorhebung zu deaktivieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordReading",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Word reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ordlæsning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Wortlesen"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordReadingOff",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Click to enable word reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "Klik for at aktivere ordlæsning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Klicken Sie, um Wortlesen zu aktivieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.audio.wordReadingOn",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Click to disable word reading"
+      },
+      {
+        "languages_code": "da",
+        "content": "Klik for at deaktivere ordlæsning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Klicken Sie, um Wortlesen zu deaktivieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.chapters.title",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Chapters"
+      },
+      {
+        "languages_code": "da",
+        "content": "Kapitler"
+      },
+      {
+        "languages_code": "de",
+        "content": "Kapitel"
+      }
+    ]
+  },
+  {
+    "key": "reader.chapters.toggle",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Table of contents"
+      },
+      {
+        "languages_code": "da",
+        "content": "Indholdsfortegnelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Inhaltsverzeichnis"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.book_not_found",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Sorry, we couldn't find this book. It may have been moved or is no longer available."
+      },
+      {
+        "languages_code": "da",
+        "content": "Beklager, vi kunne ikke finde denne bog. Den er muligvis blevet flyttet eller er ikke længere tilgængelig."
+      },
+      {
+        "languages_code": "de",
+        "content": "Entschuldigung, wir konnten dieses Buch nicht finden. Es wurde möglicherweise verschoben oder ist nicht mehr verfügbar."
+      }
+    ]
+  },
+  {
+    "key": "reader.error.failed_load_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Failed to load book"
+      },
+      {
+        "languages_code": "da",
+        "content": "Kunne ikke indlæse bog"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buch konnte nicht geladen werden"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.failed_load_pages",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Failed to load book pages"
+      },
+      {
+        "languages_code": "da",
+        "content": "Kunne ikke indlæse bogsider"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buchseiten konnten nicht geladen werden"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.failed_to_load_book",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>Bogen kan ikke hentes, kontakt administrator</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Das Formular kann nicht abgerufen werden. Bitte kontaktieren Sie den Administrator.</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>The book cannot be retrieved, contact the administrator.</p>"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.incomplete_translations",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "This book is not fully translated in this language"
+      },
+      {
+        "languages_code": "da",
+        "content": "Denne bog er ikke fuldt oversat på dette sprog"
+      },
+      {
+        "languages_code": "de",
+        "content": "Dieses Buch ist in dieser Sprache nicht vollständig übersetzt"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.loading_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Book Not Found"
+      },
+      {
+        "languages_code": "da",
+        "content": "Bogen blev ikke fundet"
+      },
+      {
+        "languages_code": "de",
+        "content": "Buch nicht gefunden"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.no_book_selected",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "No book selected"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ingen bog valgt"
+      },
+      {
+        "languages_code": "de",
+        "content": "Kein Buch ausgewählt"
+      }
+    ]
+  },
+  {
+    "key": "reader.error.page_not_found",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Page not found"
+      },
+      {
+        "languages_code": "da",
+        "content": "Side ikke fundet"
+      },
+      {
+        "languages_code": "de",
+        "content": "Seite nicht gefunden"
+      }
+    ]
+  },
+  {
+    "key": "reader.fullscreen.toggle",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Toggle fullscreen"
+      },
+      {
+        "languages_code": "da",
+        "content": "Skift fuldskærm"
+      },
+      {
+        "languages_code": "de",
+        "content": "Vollbild umschalten"
+      }
+    ]
+  },
+  {
+    "key": "reader.hint.chapters",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Choose chapter"
+      },
+      {
+        "languages_code": "da",
+        "content": "Vælg kapitel"
+      },
+      {
+        "languages_code": "de",
+        "content": "Kapitel wählen"
+      }
+    ]
+  },
+  {
+    "key": "reader.hint.feedback",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Send feedback"
+      },
+      {
+        "languages_code": "da",
+        "content": "Send feedback"
+      },
+      {
+        "languages_code": "de",
+        "content": "Feedback senden"
+      }
+    ]
+  },
+  {
+    "key": "reader.hint.fullscreen",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Expand to fullscreen"
+      },
+      {
+        "languages_code": "da",
+        "content": "Forstør til fuld skærm"
+      },
+      {
+        "languages_code": "de",
+        "content": "Vollbild aktivieren"
+      }
+    ]
+  },
+  {
+    "key": "reader.hint.settings",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Customize your reading experience"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tilpas din læseoplevelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Passe dein Leseerlebnis an"
+      }
+    ]
+  },
+  {
+    "key": "reader.loading",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Loading book..."
+      },
+      {
+        "languages_code": "da",
+        "content": "Indlæser bog..."
+      },
+      {
+        "languages_code": "de",
+        "content": "Buch wird geladen..."
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.back_home",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Go Back Home"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gå tilbage til forsiden"
+      },
+      {
+        "languages_code": "de",
+        "content": "Zurück zur Startseite"
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.back_to_book",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Back to Book"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tilbage til bogen"
+      },
+      {
+        "languages_code": "de",
+        "content": "Zurück zum Buch"
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.browse_books",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Browse Books"
+      },
+      {
+        "languages_code": "da",
+        "content": "Gennemse bøger"
+      },
+      {
+        "languages_code": "de",
+        "content": "Bücher durchsuchen"
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.next_page",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Next page"
+      },
+      {
+        "languages_code": "da",
+        "content": "Næste side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Nächste Seite"
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.page_of",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Page {current} of {total}"
+      },
+      {
+        "languages_code": "da",
+        "content": "Side {current} af {total}"
+      },
+      {
+        "languages_code": "de",
+        "content": "Seite {current} von {total}"
+      }
+    ]
+  },
+  {
+    "key": "reader.nav.previous_page",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Previous page"
+      },
+      {
+        "languages_code": "da",
+        "content": "Forrige side"
+      },
+      {
+        "languages_code": "de",
+        "content": "Vorherige Seite"
+      }
+    ]
+  },
+  {
+    "key": "reader.not_found",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Reader not found. Please build the reader app."
+      },
+      {
+        "languages_code": "da",
+        "content": "Læser ikke fundet. Byg venligst læserappen."
+      },
+      {
+        "languages_code": "de",
+        "content": "Reader nicht gefunden. Bitte erstellen Sie die Reader-App."
+      }
+    ]
+  },
+  {
+    "key": "reader.page.illustration",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>Illustration</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>Illustration</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Illustration</p>"
+      }
+    ]
+  },
+  {
+    "key": "reader.page_indicator.page",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Page"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.background",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Background"
+      },
+      {
+        "languages_code": "da",
+        "content": "Baggrund"
+      },
+      {
+        "languages_code": "de",
+        "content": "Hintergrund"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.background.cream",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Cream"
+      },
+      {
+        "languages_code": "da",
+        "content": "Creme"
+      },
+      {
+        "languages_code": "de",
+        "content": "Creme"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.background.hint",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Easier on the eyes"
+      },
+      {
+        "languages_code": "da",
+        "content": "Lettere for øjnene"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schonender für die Augen"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.background.white",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "White"
+      },
+      {
+        "languages_code": "da",
+        "content": "Hvid"
+      },
+      {
+        "languages_code": "de",
+        "content": "Weiß"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.close",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "Luk"
+      },
+      {
+        "languages_code": "en",
+        "content": "Close"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schließen"
+      },
+      {
+        "languages_code": "da",
+        "content": "Luk"
+      },
+      {
+        "languages_code": "en",
+        "content": "Close"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schließen"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.font",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Font"
+      },
+      {
+        "languages_code": "da",
+        "content": "Skrifttype"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schriftart"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.font.atkinson",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Atkinson"
+      },
+      {
+        "languages_code": "da",
+        "content": "Atkinson"
+      },
+      {
+        "languages_code": "de",
+        "content": "Atkinson"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.font.hint",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Dyslexia-friendly fonts"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ordblindvenlige skrifttyper"
+      },
+      {
+        "languages_code": "de",
+        "content": "Legasthenie-freundliche Schriftarten"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.font.opendyslexic",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "OpenDyslexic"
+      },
+      {
+        "languages_code": "da",
+        "content": "OpenDyslexic"
+      },
+      {
+        "languages_code": "de",
+        "content": "OpenDyslexic"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.font.serif",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Serif"
+      },
+      {
+        "languages_code": "da",
+        "content": "Serif"
+      },
+      {
+        "languages_code": "de",
+        "content": "Serif"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.highlight_mode",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Highlight"
+      },
+      {
+        "languages_code": "da",
+        "content": "Fremhævning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Hervorhebung"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.highlight_mode.sentence",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Sentence"
+      },
+      {
+        "languages_code": "da",
+        "content": "Sætning"
+      },
+      {
+        "languages_code": "de",
+        "content": "Satz"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.highlight_mode.word",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Word"
+      },
+      {
+        "languages_code": "da",
+        "content": "Ord"
+      },
+      {
+        "languages_code": "de",
+        "content": "Wort"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.advanced",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Advanced"
+      },
+      {
+        "languages_code": "da",
+        "content": "Avanceret"
+      },
+      {
+        "languages_code": "de",
+        "content": "Fortgeschritten"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.basic",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Beginner"
+      },
+      {
+        "languages_code": "da",
+        "content": "Begynder"
+      },
+      {
+        "languages_code": "de",
+        "content": "Anfänger"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.difficult",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Difficult"
+      },
+      {
+        "languages_code": "da",
+        "content": "Svær"
+      },
+      {
+        "languages_code": "de",
+        "content": "Schwierig"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.easy",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Easy"
+      },
+      {
+        "languages_code": "da",
+        "content": "Let"
+      },
+      {
+        "languages_code": "de",
+        "content": "Einfach"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.hint",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Choose text difficulty level"
+      },
+      {
+        "languages_code": "da",
+        "content": "Vælg tekstsværhedsgrad"
+      },
+      {
+        "languages_code": "de",
+        "content": "Textschw ierigkeitsgrad wählen"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.level.medium",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Medium"
+      },
+      {
+        "languages_code": "da",
+        "content": "Medium"
+      },
+      {
+        "languages_code": "de",
+        "content": "Mittel"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.line_spacing",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Line Spacing"
+      },
+      {
+        "languages_code": "da",
+        "content": "Linjeafstand"
+      },
+      {
+        "languages_code": "de",
+        "content": "Zeilenabstand"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.reading_level",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Reading Level"
+      },
+      {
+        "languages_code": "da",
+        "content": "Læseniveau"
+      },
+      {
+        "languages_code": "de",
+        "content": "Lesestufe"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.reset",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Reset to Defaults"
+      },
+      {
+        "languages_code": "da",
+        "content": "Nulstil til standard"
+      },
+      {
+        "languages_code": "de",
+        "content": "Auf Standard zurücksetzen"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.text_size",
+    "translations": [
+      {
+        "languages_code": "en",
+        "content": "Text Size"
+      },
+      {
+        "languages_code": "da",
+        "content": "Tekststørrelse"
+      },
+      {
+        "languages_code": "de",
+        "content": "Textgröße"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.title",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>L&aelig;seindstillinger</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Leseeinstellungen</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>Reading settings</p>"
+      }
+    ]
+  },
+  {
+    "key": "reader.settings.toggle",
+    "translations": [
+      {
+        "languages_code": "da",
+        "content": "<p>Indstillinger</p>"
+      },
+      {
+        "languages_code": "de",
+        "content": "<p>Einstellungen</p>"
+      },
+      {
+        "languages_code": "en",
+        "content": "<p>Settings</p>"
+      }
+    ]
+  }
+]

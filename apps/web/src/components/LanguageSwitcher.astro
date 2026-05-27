@@ -1,0 +1,107 @@
+---
+import { getAvailableLanguages, getLanguageFromPath, addLanguagePrefix, removeLanguagePrefix, type Language } from '../lib/i18n';
+
+const currentLang = getLanguageFromPath(Astro.url.pathname);
+const languages = await getAvailableLanguages();
+const currentPath = removeLanguagePrefix(Astro.url.pathname);
+---
+
+<div class="language-switcher">
+  <select id="language-select" class="language-select" value={currentLang}>
+    {languages.map(lang => (
+      <option value={lang.code} selected={lang.code === currentLang}>
+        {lang.name}
+      </option>
+    ))}
+  </select>
+</div>
+
+<script>
+  // Route mappings for localized URLs
+  const routes = {
+    books: { en: "books", da: "boeger", de: "bucher" },
+    about: { en: "about", da: "om", de: "uber" }
+  };
+
+  // Handle language switching
+  document.getElementById('language-select')?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    const newLang = target.value;
+
+    // Store language preference in both localStorage and cookie
+    localStorage.setItem('app-language', newLang);
+    document.cookie = `app-language=${newLang}; path=/; max-age=31536000`; // 1 year
+
+    // Get current path segments
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const supportedLangs = ['en', 'da', 'de'];
+
+    let currentLang = 'en';
+    let routeSegments = [...pathSegments];
+
+    if (supportedLangs.includes(pathSegments[0])) {
+      currentLang = pathSegments[0];
+      routeSegments = pathSegments.slice(1);
+    }
+
+    // Translate route segments
+    const newSegments = routeSegments.map((segment, index) => {
+      // Only translate the first segment (books/boeger/bucher or about/om/uber)
+      if (index === 0) {
+        // Check if this segment matches any route in the current language
+        for (const [routeName, translations] of Object.entries(routes)) {
+          if (translations[currentLang] === segment) {
+            // Return the translation for the new language
+            return translations[newLang];
+          }
+        }
+      }
+      // Keep other segments (author slugs, book slugs) unchanged
+      return segment;
+    });
+
+    // Build new URL with selected language
+    const newPath = `/${newLang}/${newSegments.join('/')}`;
+    window.location.href = newPath + window.location.search;
+  });
+</script>
+
+<style>
+  .language-switcher {
+    position: relative;
+  }
+
+  .language-select {
+    padding: 0.5rem 1.75rem 0.5rem 0.75rem;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 1.3125rem;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%231f2937' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0 center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .language-select:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent, #ff512b);
+  }
+
+  .language-select:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%231f2937' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+  }
+
+  .language-select:focus {
+    outline: 2px solid var(--primary, #0f2a91);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+</style>
