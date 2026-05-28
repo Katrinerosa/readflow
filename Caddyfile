@@ -1,0 +1,11 @@
+readflow.dk {
+	reverse_proxy web:3000
+}
+
+www.readflow.dk {
+	redir https://readflow.dk{uri} permanent
+}
+
+cms.readflow.dk {
+	reverse_proxy directus:8055
+}
