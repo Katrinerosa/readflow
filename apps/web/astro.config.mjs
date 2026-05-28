@@ -21,6 +21,9 @@ export default defineConfig({
     },
   },
   vite: {
+    server: {
+      allowedHosts: ["readflow.dk", "www.readflow.dk", "cms.readflow.dk"],
+    },
     define: {
       "import.meta.env.PUBLIC_DIRECTUS_URL": JSON.stringify(
         process.env.PUBLIC_DIRECTUS_URL || "http://localhost:8055"
